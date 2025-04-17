@@ -10,6 +10,7 @@ TagManager:
   - Open Doors
   - LightZone
   - Ghost
+  - Locked Doors
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - ExamineLayer
   - ExamineCam
-  - 
+  - CamView
   - 
   - 
   - 
