@@ -90,7 +90,7 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].icon.color = new Color(1, 1, 1, 0.4f); // fade
+            //slots[i].icon.color = new Color(1, 1, 1, 0.4f); // fade
         }
 
         if (slots[index].item != null)
