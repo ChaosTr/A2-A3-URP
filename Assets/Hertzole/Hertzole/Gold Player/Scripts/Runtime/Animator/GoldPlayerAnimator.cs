@@ -167,6 +167,7 @@ namespace Hertzole.GoldPlayer
         /// </summary>
         private void ValidateParameters()
         {
+            //the controller must save data before bring to the next step
             if (moveX.enabled && animator.GetParameter(moveX.index).type != AnimatorControllerParameterType.Float)
             {
                 Debug.LogWarning("Move X parameter needs to be a Float value.", gameObject);
