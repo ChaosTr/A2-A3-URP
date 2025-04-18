@@ -66,7 +66,7 @@ namespace Hertzole.GoldPlayer
         private GoldPlayerController playerController = null;
 
         private bool hasGoldPlayer;
-        
+
         // The hashes of the parameters.
         private int moveXHash;
         private int moveYHash;
