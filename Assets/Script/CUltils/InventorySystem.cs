@@ -47,6 +47,7 @@ public class InventorySystem
         if (Storage.Count < index)
         {
             CurrentHeld = null;
+            Debug.Log(CurrentHeld.obj.name);
         }
         else CurrentHeld = Storage[index];
     }
