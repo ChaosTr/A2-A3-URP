@@ -11,12 +11,15 @@ public class InventorySystem
 
     public void Add(GameObject obj)
     {
+        Debug.Log(obj.name);
         if (Storage.Count >= Max) return;
 
         Storage.Add(new Item
         {
             obj = obj
         });
+        
+        
     }
 
     public void Remove(Item item)
@@ -34,6 +37,7 @@ public class InventorySystem
     {
         if (CurrentHeld != null)
         {
+            Debug.Log(item.obj.name);
             CurrentHeld = item;
         }
     }

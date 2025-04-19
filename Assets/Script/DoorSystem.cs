@@ -232,20 +232,28 @@ public class DoorSystem : MonoBehaviour, IInteract
 
     private void open()
     {
-        KeyType key = KeyType.None;
+       //GameObject heldItem = GetHeldItem(pickup);
+       //KeyType heldKey = GetHeldKeyType(held);
+
         //check current item player is holding
         var item = Player.Instance.InventorySystem.CurrentHeld;
         Debug.Log(item);
         //neu ng choi ko cam gi thi mo cua keytype = none
-        if (item == null || item.obj == null) return;
-        if (item == null)
+        if (item == null || item.obj == null)
         {
-            Player.Instance.InventorySystem.CurrentHeld = KeyType.None;
+            HandleDoorToggle();
         }
+       //if (item == null)
+       //{
+       //    Player.Instance.InventorySystem.CurrentHeld = key;
+       //}
         var doorkey = item.obj.GetComponent<DoorKey>();
 
         //if current held is not doorKey do nothing
-        if (doorkey == null) return;
+        if (doorkey == null)
+        {
+            StartCoroutine(ShakeDoor());
+        }
 
         if (doorkey.keyType != requiredKey)
         {
