@@ -97,12 +97,14 @@ public class InventorySystem
         else CurrentHeld = Storage[index];*/
 
         if (index < 0 || index >= Storage.Count || Storage[index] == null)
-        {        
+        {
+            
             CurrentHeld = null;
             return;
         }
 
         CurrentHeld = Storage[index];
         
+
     }
 }

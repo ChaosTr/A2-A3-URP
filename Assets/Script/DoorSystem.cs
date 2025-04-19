@@ -275,13 +275,13 @@ public class DoorSystem : MonoBehaviour, IInteract
     {
         if (!isOpen)
         {
-            if (checkOpen()) open();
-            else shakeDoor();
+            if (checkOpen()) open(); // Try to open if unlocked or has the right key
+            else shakeDoor(); // If locked, shake the door for feedback
         }
         //cua dang mo
         else
         {
-            closeDoor();
+            closeDoor(); // If already open, close it
         }
     }
 }

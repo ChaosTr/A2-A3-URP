@@ -77,6 +77,11 @@ public class InputHandle: MonoBehaviour
             Player.Instance.InventorySystem.Equip(2);
             pickItemBehavior.UpdateEquipment();
         }
+        else if (Input.GetKey(KeyCode.Alpha4))
+        {
+            Player.Instance.InventorySystem.Equip(3);
+            pickItemBehavior.UpdateEquipment();
+        }
 
     }
 }
