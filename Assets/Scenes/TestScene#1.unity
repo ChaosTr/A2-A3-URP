@@ -15148,6 +15148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8768771311844767916, guid: bd8984046f803f8459252ec92ab58b88,
         type: 3}
+      propertyPath: openSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8768771311844767916, guid: bd8984046f803f8459252ec92ab58b88,
+        type: 3}
       propertyPath: requiredKey
       value: 0
       objectReference: {fileID: 0}
