@@ -1,4 +1,5 @@
-﻿using System.Buffers.Text;
+﻿using Hertzole.GoldPlayer;
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,20 +34,20 @@ public class DoorSystem : MonoBehaviour, IInteract
         baseRotation = transform.rotation;
     }
 
-    void OnMouseOver()
-    {
-        GameObject player = GameObject.FindWithTag("Player");
+   //void OnMouseOver()
+   //{
+   //    GameObject player = GameObject.FindWithTag("Player");
+   //
+   //    if (Vector3.Distance(player.transform.position, transform.position) > interactDistance)
+   //        return; // Too far away, don't do anything
+   //
+   //    if (Input.GetMouseButtonDown(0)) // Left-click
+   //    {
+   //        HandleDoorToggle();
+   //    }
+   //}
 
-        if (Vector3.Distance(player.transform.position, transform.position) > interactDistance)
-            return; // Too far away, don't do anything
-
-        if (Input.GetMouseButtonDown(0)) // Left-click
-        {
-            HandleDoorToggle();
-        }
-    }
-
-    void TryOpen()
+    /*void TryOpen()
     {
         GameObject player = GameObject.FindWithTag("Player");
         ItemPickup pickup = player.GetComponent<ItemPickup>();
@@ -74,8 +75,8 @@ public class DoorSystem : MonoBehaviour, IInteract
         {
             Debug.Log($"[DoorSystem] This door requires: {requiredKey}, but player has: {heldKey}");
         }
-    }
-    void ToggleDoor()
+    }*/
+    /*void ToggleDoor()
     {
         GameObject player = GameObject.FindWithTag("Player");
         Vector3 playerPos = player.transform.position;
@@ -94,7 +95,7 @@ public class DoorSystem : MonoBehaviour, IInteract
         Debug.Log("[DoorSystem] Door " + (isOpen ? "opened" : "closed"));
         StopAllCoroutines();
         StartCoroutine(RotateDoor(targetRotation));
-    }
+    }*/
 
     void HandleDoorToggle()
     {
@@ -233,16 +234,32 @@ public class DoorSystem : MonoBehaviour, IInteract
     {
         //check current item player is holding
         var item = Player.Instance.InventorySystem.CurrentHeld;
+        if (item == null || item.obj == null) return;
         var doorkey = item.obj.GetComponent<DoorKey>();
 
         //if current held is not doorKey do nothing
         if (doorkey == null) return;
 
-        var keytype = doorkey.keyType;
+        if (doorkey.keyType != requiredKey)
+        {
+            Debug.Log("[DoorSystem] Wrong key type. Cannot open.");
+            StartCoroutine(ShakeDoor());
+            return;
+        }
+
+        //var keytype = doorkey.keyType;
 
         //spend key succes
         Player.Instance.InventorySystem.Remove(item);
         Player.Instance.PickItemBehavior.UpdateEquipment();
+
+        hasOpened = true;
+        isOpen = true;
+
+        // Open based on player's position
+        OpenDoor(Player.Instance.transform.position);
+
+        Debug.Log($"[DoorSystem] Door unlocked and opened with key: {doorkey.keyType}");
     }
 
     public void Interact()
@@ -253,8 +270,8 @@ public class DoorSystem : MonoBehaviour, IInteract
         }
         //cua dang mo
         else
-        { 
-            
+        {
+            HandleDoorToggle();
         }
     }
 }
