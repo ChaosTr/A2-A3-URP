@@ -12,14 +12,18 @@ public class InventorySystem
     public void Add(GameObject obj)
     {
         Debug.Log(obj.name);
-        if (Storage.Count >= Max) return;
+        if (Storage.Count >= Max)
+        {
+            Debug.LogWarning("[InventorySystem] Inventory is full! Cannot add more items.");
+            return;
+        }
 
         Storage.Add(new Item
         {
             obj = obj
         });
-        
-        
+
+        Debug.Log($"[InventorySystem] Added item: {obj.name}");
     }
 
     public void Remove(Item item)

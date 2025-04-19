@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public static Player Instance;
 
     public SwitchCamera CameraBehavior;
-    public ExamineSystem.ExaminableItem ExaminableItem;
+    //public ExamineSystem.ExaminableItem ExaminableItem;
     public ItemPickup PickItemBehavior;
     public InventoryDisplay InventoryDisplay;
 

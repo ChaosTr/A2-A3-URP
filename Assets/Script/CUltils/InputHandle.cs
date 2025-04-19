@@ -5,7 +5,7 @@ public class InputHandle: MonoBehaviour
 {
     public float pickupRange = 3f;
     public GameObject inspectPoint;
-    private bool isOn = false;
+    //private bool isOn = false;
 
     private Camera currentCam => Player.Instance.CameraBehavior.CurrentCam;
     private ItemPickup pickItemBehavior => Player.Instance.PickItemBehavior;

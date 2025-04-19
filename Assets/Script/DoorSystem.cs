@@ -238,7 +238,7 @@ public class DoorSystem : MonoBehaviour, IInteract
         //check current item player is holding
         var item = Player.Instance.InventorySystem.CurrentHeld;
         Debug.Log(item);
-        //neu ng choi ko cam gi thi mo cua keytype = none
+        
         if (item == null || item.obj == null)
         {
             HandleDoorToggle();
@@ -262,10 +262,12 @@ public class DoorSystem : MonoBehaviour, IInteract
             return;
         }
 
-        //var keytype = doorkey.keyType;
+        var keytype = doorkey.keyType;
 
         //spend key succes
         Player.Instance.InventorySystem.Remove(item);
+        GameObject.Destroy(item.obj);
+        Player.Instance.PickItemBehavior.ClearHeldObject();
         Player.Instance.PickItemBehavior.UpdateEquipment();
 
         hasOpened = true;

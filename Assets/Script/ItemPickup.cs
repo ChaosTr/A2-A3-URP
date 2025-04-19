@@ -58,18 +58,39 @@ public class ItemPickup : MonoBehaviour
 
     public void PickupItem(GameObject item)
     {
-        if (heldObject != null) return;
-        heldObject = item;
+        //if (heldObject != null)
+        //{
+        //    Debug.LogWarning("[ItemPickup] Already holding an object. Drop first before picking up.");
+        //    return;
+        //}
+        //heldObject = item;
+        //Debug.Log($"[ItemPickup] Picking up item: {item.name}");
+        //
+        //// Disable physics
+        //Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        //if (rb)
+        //{
+        //    rb.isKinematic = true;
+        //    rb.useGravity = false;
+        //}
+        //
+        //Player.Instance.InventorySystem.Add(heldObject);
 
-        // Disable physics
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb)
+        // If already holding something on-hand, don't allow pickup
+        if (Player.Instance.InventorySystem.CurrentHeld != null)
         {
-            rb.isKinematic = true;
-            rb.useGravity = false;
+            Debug.LogWarning("[ItemPickup] Cannot pick up. Already holding an equipped item.");
+            return;
         }
 
-        Player.Instance.InventorySystem.Add(heldObject);
+        // Just add it to inventory — no need to hold it yet
+        Player.Instance.InventorySystem.Add(item);
+        Debug.Log($"[ItemPickup] Added to inventory: {item.name}");
+    }
+
+    public void ClearHeldObject()
+    {
+        heldObject = null;
     }
 
     public void DropItem()
@@ -100,21 +121,39 @@ public class ItemPickup : MonoBehaviour
 
     public void UpdateEquipment()
     {
-        var helding = Player.Instance.InventorySystem.CurrentHeld;
-        if (helding == null)
+        var holding = Player.Instance.InventorySystem.CurrentHeld;
+        if (holding == null || holding.obj == null)
         {
             //tat gameobject
+            if (heldObject != null)
+            {
+                Destroy(heldObject);
+                heldObject = null;
+            }
+            return;
         }
-        else
-        {
-            var itemObject = helding.obj;
-            heldObject = itemObject;
-            //set transform..
+        //else
+        //{
+        //    var itemObject = holding.obj;
+        //    heldObject = itemObject;
+        //    //set transform..
+        //
+        //    // Attach object to onHandPos
+        //    heldObject = holding.obj;
+        //    heldObject.transform.SetParent(onHandPos);
+        //    heldObject.transform.localPosition = Vector3.zero;
+        //    heldObject.transform.localRotation = Quaternion.identity;
+        //}
+        heldObject = holding.obj;
+        heldObject.transform.SetParent(onHandPos);
+        heldObject.transform.localPosition = Vector3.zero;
+        heldObject.transform.localRotation = Quaternion.identity;
 
-            // Attach object to onHandPos
-            heldObject.transform.SetParent(onHandPos);
-            heldObject.transform.localPosition = Vector3.zero;
-            heldObject.transform.localRotation = Quaternion.identity;
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
         }
     }
 }
