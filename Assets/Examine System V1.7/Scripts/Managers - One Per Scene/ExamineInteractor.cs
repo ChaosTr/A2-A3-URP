@@ -10,6 +10,8 @@ namespace ExamineSystem
         private ExaminableItem examinableItem;
         private Camera _camera;
 
+        public Light light1, light2, light3;
+
         void Start()
         {
             if (!TryGetComponent<Camera>(out _camera))
@@ -44,7 +46,17 @@ namespace ExamineSystem
                 if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
                 {
                     examinableItem.ExamineObject();
+                    light1.enabled = true;
+                    light2.enabled = true;
+                    light3.enabled = true;
                 }
+            }
+
+            if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
+            {
+                light1.enabled = false;
+                light2.enabled = false;
+                light3.enabled = false;
             }
         }
 
