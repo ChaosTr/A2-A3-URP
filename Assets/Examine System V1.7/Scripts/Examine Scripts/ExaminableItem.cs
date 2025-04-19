@@ -55,7 +55,7 @@ namespace ExamineSystem
         [SerializeField] private Sound pickupSound = null;
         [SerializeField] private Sound dropSound = null;
         #endregion
-
+        
         #region Text Customisation Fields
         [SerializeField] private UIType _UIType = UIType.None;
         [SerializeField] private enum UIType { None, BasicLowerUI, RightSideUI }
@@ -66,7 +66,7 @@ namespace ExamineSystem
         [SerializeField] private TMP_FontAsset fontType = null;
         [SerializeField] private Color fontColor = Color.white;
 
-        [Space(5)][TextArea][SerializeField] private string itemDescription = null;
+        [Space(5)] [TextArea] [SerializeField] private string itemDescription = null;
 
         [SerializeField] private int textSizeDesc = 30;
         [SerializeField] private TMP_FontAsset fontTypeDesc = null;
@@ -108,7 +108,7 @@ namespace ExamineSystem
         }
         private Rigidbody rb;
 
-
+        
 
         public bool hasInspectPoints
         {
@@ -130,8 +130,8 @@ namespace ExamineSystem
             }
 
             initialZoom = Mathf.Clamp(initialZoom, zoomRange.x, zoomRange.y);
-            //originalPosition = transform.position; 
-            //originalRotation = transform.rotation;
+           //originalPosition = transform.position; 
+           //originalRotation = transform.rotation;
             startPos = gameObject.transform.localEulerAngles;
 
             DisableEmissionOnChildrenHighlight(true);
@@ -224,7 +224,7 @@ namespace ExamineSystem
             SetExamineLayer(examineLayer);
             PlayPickupSound();
 
-            currentZoom = initialZoom;
+            currentZoom = initialZoom; 
             ItemZoom(initialZoom, false);
 
             transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
@@ -377,7 +377,7 @@ namespace ExamineSystem
                 case UIType.RightSideUI:
                     examineUIManager.SetRightUITextSettings(textSize, fontType, fontColor, textSizeDesc, fontTypeDesc, fontColorDesc);
                     break;
-            }
+            }         
         }
 
         void FindInspectPoints()
@@ -406,7 +406,7 @@ namespace ExamineSystem
         }
 
         void InspectPointUI(GameObject item, Camera camera, bool detected) // Enable/disable inspect point UI
-        {
+        { 
             if (detected)
             {
                 Vector3 setPosition = camera.WorldToScreenPoint(item.transform.position);
@@ -450,7 +450,7 @@ namespace ExamineSystem
 
         void DisableInspectPoints()
         {
-            if (hasInspectPoints)
+            if(hasInspectPoints)
             {
                 foreach (GameObject pointToEnable in inspectPoints)
                 {
@@ -478,7 +478,7 @@ namespace ExamineSystem
                 foreach (GameObject gameobjectToLayer in childObjects)
                 {
                     Material thisMat = gameobjectToLayer.GetComponent<Renderer>().material;
-                    if (!enable)
+                    if(!enable)
                     {
                         thisMat.EnableKeyword(emissive);
                     }
@@ -553,5 +553,5 @@ namespace ExamineSystem
             }
         }
     }
-
+    
 }

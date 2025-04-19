@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using ExamineSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,15 +16,13 @@ public class SwitchCamera : MonoBehaviour
     [Header("==========Bool==========")]
     public bool camOnHand = false;
     public bool canEquipCam = false;
-    private bool isTriggered = false;
     [Header("======InvisibleColliders======")]
     public Collider[] invisibleColli;
     [Header("==========Script==========")]
     public FadeInFadeOut fadeOutScript;
     public CameraBattery batteryScript;
-    //public ExaminableItem examinableItem;
 
-    public Camera CurrentCam => camOnHand ? camView : fpsCam;
+    public Camera CurrentCam => camOnHand ? camView : fpsCam; 
 
     void Start()
     {
@@ -77,20 +74,6 @@ public class SwitchCamera : MonoBehaviour
         }
         */
 
-        if (batteryScript.batteryEmpty == true && !isTriggered)
-        {
-            if (!camOnHand) // turning OFF the Spiritual Camera
-            {
-                if (ExamineSystem.ExamineUIManager.instance.examinableItem != null)
-                {
-                    Debug.Log("yo yo");
-                    ExamineSystem.ExamineUIManager.instance.examinableItem.ForceDropIfExamining();
-                }
-                //StartCoroutine(Fading());
-                isTriggered = true;
-            }
-        }
-
         // Press C to swtich view
         if (Input.GetKeyDown(KeyCode.C) && canEquipCam)
         {
@@ -102,15 +85,15 @@ public class SwitchCamera : MonoBehaviour
                 {
                     if (ExamineSystem.ExamineUIManager.instance.examinableItem != null)
                     {
-                        Debug.Log("yo");
                         ExamineSystem.ExamineUIManager.instance.examinableItem.ForceDropIfExamining();
+
                     }
                     StartCoroutine(Fading());
                 }
 
                 StartCoroutine(ToggleCamera()); // Toggle between FPS camera and Cam Obj
 
-                ToggleCollider(camOnHand); // Enable or Disable invisible object colliders based on camOnHand
+                //ToggleCollider(camOnHand); // Enable or Disable invisible object colliders based on camOnHand
                 if (!camOnHand)
                 {
                     //StartCoroutine(Fading());
