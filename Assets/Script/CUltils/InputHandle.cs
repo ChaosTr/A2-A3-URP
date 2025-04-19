@@ -21,10 +21,6 @@ public class InputHandle: MonoBehaviour
 
     private void Update()
     {
-        //if (Player.Instance.ExaminableItem.IsInvoking)
-        //{
-        //    return;
-        //}
         //left click
         if (Input.GetMouseButtonDown(0))
         {

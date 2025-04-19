@@ -9,39 +9,45 @@ public class InventorySystem
 
     public int Max = 4;
 
-    public void Add(GameObject obj)
+    public bool Add(GameObject obj)
     {
         Debug.Log(obj.name);
+
         if (Storage.Count >= Max)
         {
             Debug.LogWarning("[InventorySystem] Inventory is full! Cannot add more items.");
-            return;
+            return false;
         }
 
         Storage.Add(new Item
         {
-            obj = obj
+            GameObject = obj
+            //amount or something you want to add to have more info
         });
+
+        return true;
 
         Debug.Log($"[InventorySystem] Added item: {obj.name}");
     }
 
     public void Remove(Item item)
     {
+        if (CurrentHeld == item) CurrentHeld = null;
         Storage.Remove(item);
     }
 
     public class Item
     {
-        public GameObject obj;
-        public Sprite Sprite;
+        public GameObject GameObject;
+        //amount or something, what info you want to store here
+        //but in this sample I wil make it simple
     }
 
     public void Equip(Item item)
     {
         if (CurrentHeld != null)
         {
-            Debug.Log(item.obj.name);
+            Debug.Log(item.GameObject.name);
             CurrentHeld = item;
         }
     }
@@ -51,7 +57,7 @@ public class InventorySystem
         if (Storage.Count < index)
         {
             CurrentHeld = null;
-            Debug.Log(CurrentHeld.obj.name);
+            Debug.Log(CurrentHeld.GameObject.name);
         }
         else CurrentHeld = Storage[index];
     }

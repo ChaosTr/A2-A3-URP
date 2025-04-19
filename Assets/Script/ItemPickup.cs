@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -13,7 +10,7 @@ public class ItemPickup : MonoBehaviour
     private GameObject heldObject;         // Reference to the currently held object
     private Camera cam;                    // Reference to the main camera
 
-    void Start()
+    private void Start()
     {
         cam = Camera.main;                 // Get the main camera at the start
     }
@@ -58,34 +55,48 @@ public class ItemPickup : MonoBehaviour
 
     public void PickupItem(GameObject item)
     {
-        //if (heldObject != null)
-        //{
-        //    Debug.LogWarning("[ItemPickup] Already holding an object. Drop first before picking up.");
-        //    return;
-        //}
-        //heldObject = item;
-        //Debug.Log($"[ItemPickup] Picking up item: {item.name}");
-        //
-        //// Disable physics
-        //Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        //if (rb)
-        //{
-        //    rb.isKinematic = true;
-        //    rb.useGravity = false;
-        //}
-        //
-        //Player.Instance.InventorySystem.Add(heldObject);
+        // Just add it to inventory — no need to hold it yet
+        // add to inventory whenever have slot
 
-        // If already holding something on-hand, don't allow pickup
-        if (Player.Instance.InventorySystem.CurrentHeld != null)
+        if (Player.Instance.InventorySystem.Add(item))
         {
-            Debug.LogWarning("[ItemPickup] Cannot pick up. Already holding an equipped item.");
+            //hide object when picked, note: not Destroy because reference will null,
+            //safe to destroy when have prefab ref but in small prototype game like this
+            //just hide it, show it again when use
+            item.gameObject.SetActive(false);
+            Debug.Log($"[ItemPickup] Added to inventory: {item.name}");
+        }
+        else //inventory full
+        {
+            //do what ever you want here
+        }
+    }
+
+    public void UpdateEquipment()
+    {
+        heldObject?.SetActive(false);
+
+        var holding = Player.Instance.InventorySystem.CurrentHeld;
+        if (holding == null || holding.GameObject == null)
+        {
+            heldObject = null;
             return;
         }
 
-        // Just add it to inventory — no need to hold it yet
-        Player.Instance.InventorySystem.Add(item);
-        Debug.Log($"[ItemPickup] Added to inventory: {item.name}");
+        //update holding gameobject
+        heldObject = holding.GameObject;
+        heldObject.transform.SetParent(onHandPos);
+        heldObject.transform.localPosition = Vector3.zero;
+        heldObject.transform.localRotation = Quaternion.identity;
+        //show game object that we hide when pickup
+        heldObject.gameObject.SetActive(true);
+
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
     }
 
     public void ClearHeldObject()
@@ -117,43 +128,5 @@ public class ItemPickup : MonoBehaviour
 
         var current = Player.Instance.InventorySystem.CurrentHeld;
         Player.Instance.InventorySystem.Remove(current);
-    }
-
-    public void UpdateEquipment()
-    {
-        var holding = Player.Instance.InventorySystem.CurrentHeld;
-        if (holding == null || holding.obj == null)
-        {
-            //tat gameobject
-            if (heldObject != null)
-            {
-                Destroy(heldObject);
-                heldObject = null;
-            }
-            return;
-        }
-        //else
-        //{
-        //    var itemObject = holding.obj;
-        //    heldObject = itemObject;
-        //    //set transform..
-        //
-        //    // Attach object to onHandPos
-        //    heldObject = holding.obj;
-        //    heldObject.transform.SetParent(onHandPos);
-        //    heldObject.transform.localPosition = Vector3.zero;
-        //    heldObject.transform.localRotation = Quaternion.identity;
-        //}
-        heldObject = holding.obj;
-        heldObject.transform.SetParent(onHandPos);
-        heldObject.transform.localPosition = Vector3.zero;
-        heldObject.transform.localRotation = Quaternion.identity;
-
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-        }
     }
 }
