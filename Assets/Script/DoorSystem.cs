@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorSystem : MonoBehaviour
+public class DoorSystem : MonoBehaviour, IInteract
 {
     public KeyType requiredKey = KeyType.None; 
     public Transform hinge; // The hinge or pivot point of the door
@@ -227,5 +227,34 @@ public class DoorSystem : MonoBehaviour
         transform.rotation = originalRotation;
         isShaking = false;
         Debug.Log("[DoorSystem] Shake finished!");
+    }
+
+    private void open()
+    {
+        //check current item player is holding
+        var item = Player.Instance.InventorySystem.CurrentHeld;
+        var doorkey = item.obj.GetComponent<DoorKey>();
+
+        //if current held is not doorKey do nothing
+        if (doorkey == null) return;
+
+        var keytype = doorkey.keyType;
+
+        //spend key succes
+        Player.Instance.InventorySystem.Remove(item);
+        Player.Instance.PickItemBehavior.UpdateEquipment();
+    }
+
+    public void Interact()
+    {
+        if (!isOpen)
+        {
+            open();
+        }
+        //cua dang mo
+        else
+        { 
+            
+        }
     }
 }

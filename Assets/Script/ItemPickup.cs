@@ -18,46 +18,47 @@ public class ItemPickup : MonoBehaviour
         cam = Camera.main;                 // Get the main camera at the start
     }
 
-    void Update()
-    {
-        if (heldObject == null)
-        {
-            // Try to pick up when left mouse is clicked
-            if (Input.GetMouseButtonDown(0))
-            {
-                TryPickup();
-            }
-        }
-        else
-        {
-            // Drop held item with right mouse click
-            if (Input.GetMouseButtonDown(1))
-            {
-                DropItem();
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (heldObject == null)
+    //    {
+    //        // Try to pick up when left mouse is clicked
+    //        if (Input.GetMouseButtonDown(0))
+    //        {
+    //            TryPickup();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        // Drop held item with right mouse click
+    //        if (Input.GetMouseButtonDown(1))
+    //        {
+    //            DropItem();
+    //        }
+    //    }
+    //}
 
-    void TryPickup()
-    {
-        // Cast a ray from the center of the screen
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-        RaycastHit hit;
+    //void TryPickup()
+    //{
+    //    // Cast a ray from the center of the screen
+    //    Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+    //    RaycastHit hit;
 
-        // Raycast to detect objects within pickup range
-        if (Physics.Raycast(ray, out hit, pickupRange))
-        {
-            // Check if the object has a Pickable component
-            Pickable pickable = hit.collider.GetComponent<Pickable>();
-            if (pickable != null)
-            {
-                PickupItem(hit.collider.gameObject);
-            }
-        }
-    }
+    //    // Raycast to detect objects within pickup range
+    //    if (Physics.Raycast(ray, out hit, pickupRange))
+    //    {
+    //        // Check if the object has a Pickable component
+    //        Pickable pickable = hit.collider.GetComponent<Pickable>();
+    //        if (pickable != null)
+    //        {
+    //            PickupItem(hit.collider.gameObject);
+    //        }
+    //    }
+    //}
 
-    void PickupItem(GameObject item)
+    public void PickupItem(GameObject item)
     {
+        if (heldObject != null) return;
         heldObject = item;
 
         // Disable physics
@@ -68,13 +69,10 @@ public class ItemPickup : MonoBehaviour
             rb.useGravity = false;
         }
 
-        // Attach object to onHandPos
-        heldObject.transform.SetParent(onHandPos);
-        heldObject.transform.localPosition = Vector3.zero;
-        heldObject.transform.localRotation = Quaternion.identity;
+        Player.Instance.InventorySystem.Add(heldObject);
     }
 
-    void DropItem()
+    public void DropItem()
     {
         if (heldObject == null || throwPos == null) return;
 
@@ -95,5 +93,28 @@ public class ItemPickup : MonoBehaviour
         // Detach from any parent
         heldObject.transform.SetParent(null);
         heldObject = null;
+
+        var current = Player.Instance.InventorySystem.CurrentHeld;
+        Player.Instance.InventorySystem.Remove(current);
+    }
+
+    public void UpdateEquipment()
+    {
+        var helding = Player.Instance.InventorySystem.CurrentHeld;
+        if (helding == null)
+        {
+            //tat gameobject
+        }
+        else
+        {
+            var itemObject = helding.obj;
+            heldObject = itemObject;
+            //set transform..
+
+            // Attach object to onHandPos
+            heldObject.transform.SetParent(onHandPos);
+            heldObject.transform.localPosition = Vector3.zero;
+            heldObject.transform.localRotation = Quaternion.identity;
+        }
     }
 }

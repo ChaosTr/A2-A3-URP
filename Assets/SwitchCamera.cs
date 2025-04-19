@@ -22,6 +22,8 @@ public class SwitchCamera : MonoBehaviour
     public FadeInFadeOut fadeOutScript;
     public CameraBattery batteryScript;
 
+    public Camera CurrentCam => camOnHand ? camView : fpsCam; 
+
     void Start()
     {
         // Ensure the correct camera is enabled at start
