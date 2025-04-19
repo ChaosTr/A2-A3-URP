@@ -22,7 +22,7 @@ namespace ExamineSystem
 
         void Awake()
         {
-            
+
             if (instance != null)
             {
                 Destroy(gameObject);
