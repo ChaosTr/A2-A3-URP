@@ -232,9 +232,16 @@ public class DoorSystem : MonoBehaviour, IInteract
 
     private void open()
     {
+        KeyType key = KeyType.None;
         //check current item player is holding
         var item = Player.Instance.InventorySystem.CurrentHeld;
+        Debug.Log(item);
+        //neu ng choi ko cam gi thi mo cua keytype = none
         if (item == null || item.obj == null) return;
+        if (item == null)
+        {
+            Player.Instance.InventorySystem.CurrentHeld = KeyType.None;
+        }
         var doorkey = item.obj.GetComponent<DoorKey>();
 
         //if current held is not doorKey do nothing
@@ -266,6 +273,7 @@ public class DoorSystem : MonoBehaviour, IInteract
     {
         if (!isOpen)
         {
+            Debug.Log("running");
             open();
         }
         //cua dang mo
