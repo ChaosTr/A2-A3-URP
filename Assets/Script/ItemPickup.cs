@@ -106,27 +106,37 @@ public class ItemPickup : MonoBehaviour
 
     public void DropItem()
     {
-        if (heldObject == null || throwPos == null) return;
+        if (heldObject == null || throwPos == null)
+        {      
+            return;
+        }
 
-        // Move the held object to throw position
+        // Move object to throw position
         heldObject.transform.position = throwPos.position;
 
         // Re-enable physics
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb)
+        if (rb != null)
         {
             rb.isKinematic = false;
             rb.useGravity = true;
-
-            // Throw in the forward direction of the camera
             rb.AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
         }
 
-        // Detach from any parent
+        // Detach object from player hand
         heldObject.transform.SetParent(null);
-        heldObject = null;
+        heldObject.SetActive(true);
 
+        // Remove from inventory
         var current = Player.Instance.InventorySystem.CurrentHeld;
         Player.Instance.InventorySystem.Remove(current);
+
+        // Clear local reference
+        heldObject = null;
+
+        // Update inventory logic (optional UI)
+        Player.Instance.PickItemBehavior.UpdateEquipment();
+
+        Debug.Log("[ItemPickup] Item dropped and removed from inventory.");
     }
 }

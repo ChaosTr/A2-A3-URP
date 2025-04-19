@@ -28,8 +28,9 @@ public class DoorSystem : MonoBehaviour, IInteract
 
     private void Start()
     {
+
         initialForward = transform.forward;
-        baseRotation = transform.rotation;
+        baseRotation = hinge.rotation;
     }
 
     #region Deprecated
@@ -164,13 +165,13 @@ public class DoorSystem : MonoBehaviour, IInteract
 
     private IEnumerator RotateDoor(Quaternion targetRotation)
     {
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        while (Quaternion.Angle(hinge.rotation, targetRotation) > 0.1f)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * openSpeed);
+            hinge.rotation = Quaternion.Slerp(hinge.rotation, targetRotation, Time.deltaTime * openSpeed);
             yield return null;
         }
 
-        transform.rotation = targetRotation;
+        hinge.rotation = targetRotation;
     }
 
     private void shakeDoor()
@@ -219,16 +220,20 @@ public class DoorSystem : MonoBehaviour, IInteract
         void OpenDoor_Internal(Vector3 playerPos)
         {
             // Determine which side the player is on
-            Vector3 toPlayer = playerPos - transform.position;
-            float dot = Vector3.Dot(transform.right, toPlayer);
+            Vector3 toPlayer = (Player.Instance.transform.position - transform.position).normalized;
+            float dot = Vector3.Dot(hinge.right, toPlayer); // Check side
 
             float angle = (dot > 0) ? -openAngle : openAngle;
 
-            Quaternion targetRotation = Quaternion.Euler(0, angle, 0) * transform.rotation;
+            //  Rotate from original baseRotation, not current rotation
+            Quaternion targetRotation = Quaternion.Euler(0, angle, 0) * baseRotation;
+            StopAllCoroutines();
             StartCoroutine(RotateDoor(targetRotation));
 
-            isOpen = true;
             Debug.Log("[DoorSystem] Door opened to angle: " + angle);
+
+            isOpen = true;
+            //Debug.Log("[DoorSystem] Door opened to angle: " + angle);
         }
     }
 
@@ -260,6 +265,10 @@ public class DoorSystem : MonoBehaviour, IInteract
 
     private void closeDoor()
     {
+        isOpen = false;
+        Debug.Log("[DoorSystem] Closing door.");
+        StopAllCoroutines();
+        StartCoroutine(RotateDoor(baseRotation));
     }
 
     public void Interact()
