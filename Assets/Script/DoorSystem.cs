@@ -1,22 +1,21 @@
-﻿using Hertzole.GoldPlayer;
-using System.Buffers.Text;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class DoorSystem : MonoBehaviour, IInteract
 {
-    public KeyType requiredKey = KeyType.None; 
+    public KeyType requiredKey = KeyType.None;
     public Transform hinge; // The hinge or pivot point of the door
     public float openAngle = 90f;
     public float openSpeed = 3f;
     public float interactDistance = 3f;
+
     //public AudioSource audioSource;
     //public AudioClip openClip;
     //public AudioClip closeClip;
-    //public AudioClip lockedClip; 
+    //public AudioClip lockedClip;
     [Header("Door Shake")]
     public float shakeDuration = 0.3f;
+
     public float shakeAmount = 5f;
     public float shakeSpeed = 50f;
     public float elapsed = 0f;
@@ -27,13 +26,14 @@ public class DoorSystem : MonoBehaviour, IInteract
     private bool isShaking;
     private Quaternion baseRotation;
 
-    void Start()
+    private void Start()
     {
         initialForward = transform.forward;
         baseRotation = transform.rotation;
     }
 
     #region Deprecated
+
     //void OnMouseOver()
     //{
     //    GameObject player = GameObject.FindWithTag("Player");
@@ -59,7 +59,6 @@ public class DoorSystem : MonoBehaviour, IInteract
         {
             if (!hasOpened)
             {
-
                 OpenDoor(player.transform.position);
 
                 if (heldItem != null && requiredKey != KeyType.None)
@@ -96,7 +95,8 @@ public class DoorSystem : MonoBehaviour, IInteract
         StopAllCoroutines();
         StartCoroutine(RotateDoor(targetRotation));
     }*/
-    #endregion
+
+    #endregion Deprecated
 
     /*
     void HandleDoorToggle()
@@ -153,7 +153,6 @@ public class DoorSystem : MonoBehaviour, IInteract
         StopAllCoroutines();
         StartCoroutine(RotateDoor(targetRotation));
     }
-    
 
     KeyType GetHeldKeyType(GameObject item)
     {
@@ -163,7 +162,7 @@ public class DoorSystem : MonoBehaviour, IInteract
         return key != null ? key.keyType : KeyType.None;
     }*/
 
-    IEnumerator RotateDoor(Quaternion targetRotation)
+    private IEnumerator RotateDoor(Quaternion targetRotation)
     {
         while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
         {
@@ -207,10 +206,12 @@ public class DoorSystem : MonoBehaviour, IInteract
         }
     }
 
-    private void open()
-    {      
-        isOpen = true;
+    private bool isUnlocked = false;
 
+    private void open()
+    {
+        isOpen = true;
+        isUnlocked = true;
         // Open based on player's position
         OpenDoor_Internal(Player.Instance.transform.position);
 
@@ -231,8 +232,6 @@ public class DoorSystem : MonoBehaviour, IInteract
         }
     }
 
-    private bool isUnlocked = false;
-
     private bool checkOpen()
     {
         //can check if door is unlocked, open freely
@@ -241,7 +240,7 @@ public class DoorSystem : MonoBehaviour, IInteract
         else
         {
             var item = Player.Instance.InventorySystem.CurrentHeld;
-            if (item != null && item.GameObject != null && item.GameObject.GetComponent<DoorKey>() is DoorKey doorKey)
+            if (item != null && item.GameObject?.GetComponent<DoorKey>() is DoorKey doorKey)
             {
                 if (requiredKey == doorKey.keyType)
                 {
@@ -249,9 +248,7 @@ public class DoorSystem : MonoBehaviour, IInteract
                     Player.Instance.InventorySystem.Remove(item);
                     Player.Instance.PickItemBehavior.UpdateEquipment();
 
-                    isUnlocked = true;
-
-                    //destroy key on scene
+                    //destroy key if not need anymore, else just hide it. depend what you guys want
                     Destroy(item.GameObject);
                     return true;
                 }
@@ -262,8 +259,7 @@ public class DoorSystem : MonoBehaviour, IInteract
     }
 
     private void closeDoor()
-    { 
-    
+    {
     }
 
     public void Interact()
@@ -272,7 +268,6 @@ public class DoorSystem : MonoBehaviour, IInteract
         {
             if (checkOpen()) open();
             else shakeDoor();
-
         }
         //cua dang mo
         else
