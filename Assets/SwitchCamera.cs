@@ -16,13 +16,14 @@ public class SwitchCamera : MonoBehaviour
     [Header("==========Bool==========")]
     public bool camOnHand = false;
     public bool canEquipCam = false;
+    public bool isTriggered = false;
     [Header("======InvisibleColliders======")]
     public Collider[] invisibleColli;
     [Header("==========Script==========")]
     public FadeInFadeOut fadeOutScript;
     public CameraBattery batteryScript;
 
-    public Camera CurrentCam => camOnHand ? camView : fpsCam; 
+    public Camera CurrentCam => camOnHand ? camView : fpsCam;
 
     void Start()
     {
@@ -73,6 +74,20 @@ public class SwitchCamera : MonoBehaviour
             }
         }
         */
+
+        if (batteryScript.batteryEmpty == true && !isTriggered)
+        {
+            if (!camOnHand) // turning OFF the Spiritual Camera
+            {
+                if (ExamineSystem.ExamineUIManager.instance.examinableItem != null)
+                {
+                    ExamineSystem.ExamineUIManager.instance.examinableItem.ForceDropIfExamining();
+
+                }
+                //StartCoroutine(Fading());
+            }
+            isTriggered = true;
+        }
 
         // Press C to swtich view
         if (Input.GetKeyDown(KeyCode.C) && canEquipCam)
