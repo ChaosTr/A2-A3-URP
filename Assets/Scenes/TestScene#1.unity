@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528744fdf552ba04c991cda166963ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyType: 1
+  keyType: 0
 --- !u!65 &322490636
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1668,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528744fdf552ba04c991cda166963ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyType: 1
+  keyType: 0
 --- !u!65 &445005907
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3086,6 +3086,11 @@ PrefabInstance:
     - target: {fileID: 3623091853019599965, guid: 306bfec8b9af4aa4dbfbf69830a0a4f8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5508336340100511316, guid: 306bfec8b9af4aa4dbfbf69830a0a4f8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8183754908738746284, guid: 306bfec8b9af4aa4dbfbf69830a0a4f8,
