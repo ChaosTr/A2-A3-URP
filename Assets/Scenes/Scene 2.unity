@@ -4679,7 +4679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627342546}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.179155, y: -5.337043, z: 5.152339}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9414,8 +9414,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghost: {fileID: 458686360}
   runPoint: {fileID: 168632327}
-  doorSystem: {fileID: 627342547}
   moveSpeed: 3
+  door: {fileID: 627342548}
 --- !u!65 &1179981753
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ public class DoorSystem : MonoBehaviour, IInteract
         return key != null ? key.keyType : KeyType.None;
     }*/
 
-    private IEnumerator RotateDoor(Quaternion targetRotation)
+    public IEnumerator RotateDoor(Quaternion targetRotation)
     {
         while (Quaternion.Angle(hinge.rotation, targetRotation) > 0.1f)
         {

@@ -7,16 +7,19 @@ public class GhostRun : MonoBehaviour
     public GameObject ghost;
     //public AudioSource auidio;
     public Transform runPoint;
-    public DoorSystem doorSystem;
+    //public DoorSystem doorSystem;
     public float moveSpeed;
+    public Transform door;
     
     private Collider boxCollider;
     private bool isTriggered = false;
 
     void Awake()
     {
+        
         boxCollider = GetComponent<Collider>();
-        doorSystem.open();
+        //door.transform.rotation = Quaternion.Euler(0, -90f, 0);
+        
     }
 
     void OnTriggerEnter(Collider other ) 
@@ -24,7 +27,7 @@ public class GhostRun : MonoBehaviour
         if (isTriggered) return;
         if (other.CompareTag("Player"))
         {
-            doorSystem.closeDoor();
+            //doorSystem.closeDoor();
             StartCoroutine(MoveGhost());
         }
 
@@ -40,6 +43,7 @@ public class GhostRun : MonoBehaviour
             elapsed += Time.deltaTime;
         float t = Mathf.Clamp01(elapsed / duration); // Keeps t from going over 1
         ghost.transform.position = Vector3.Lerp(ghost.transform.position, runPoint.position, t);
+        //door.transform.rotation = Quaternion.Euler(0, 0, 0);
         yield return null;
         }
         ghost.transform.position = runPoint.transform.position;
