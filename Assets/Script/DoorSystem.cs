@@ -209,7 +209,7 @@ public class DoorSystem : MonoBehaviour, IInteract
 
     private bool isUnlocked = false;
 
-    private void open()
+    public void open()
     {
         isOpen = true;
         isUnlocked = true;
@@ -263,7 +263,7 @@ public class DoorSystem : MonoBehaviour, IInteract
         }
     }
 
-    private void closeDoor()
+    public void closeDoor()
     {
         isOpen = false;
         Debug.Log("[DoorSystem] Closing door.");
