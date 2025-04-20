@@ -1,21 +1,21 @@
-﻿using System.Buffers.Text;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
-public class DoorSystem : MonoBehaviour
+public class DoorSystem : MonoBehaviour, IInteract
 {
-    public KeyType requiredKey = KeyType.None; 
+    public KeyType requiredKey = KeyType.None;
     public Transform hinge; // The hinge or pivot point of the door
     public float openAngle = 90f;
     public float openSpeed = 3f;
     public float interactDistance = 3f;
+
     //public AudioSource audioSource;
     //public AudioClip openClip;
     //public AudioClip closeClip;
-    //public AudioClip lockedClip; 
+    //public AudioClip lockedClip;
     [Header("Door Shake")]
     public float shakeDuration = 0.3f;
+
     public float shakeAmount = 5f;
     public float shakeSpeed = 50f;
     public float elapsed = 0f;
@@ -26,27 +26,29 @@ public class DoorSystem : MonoBehaviour
     private bool isShaking;
     private Quaternion baseRotation;
 
-
-    void Start()
+    private void Start()
     {
+
         initialForward = transform.forward;
-        baseRotation = transform.rotation;
+        baseRotation = hinge.rotation;
     }
 
-    void OnMouseOver()
-    {
-        GameObject player = GameObject.FindWithTag("Player");
+    #region Deprecated
 
-        if (Vector3.Distance(player.transform.position, transform.position) > interactDistance)
-            return; // Too far away, don't do anything
+    //void OnMouseOver()
+    //{
+    //    GameObject player = GameObject.FindWithTag("Player");
+    //
+    //    if (Vector3.Distance(player.transform.position, transform.position) > interactDistance)
+    //        return; // Too far away, don't do anything
+    //
+    //    if (Input.GetMouseButtonDown(0)) // Left-click
+    //    {
+    //        HandleDoorToggle();
+    //    }
+    //}
 
-        if (Input.GetMouseButtonDown(0)) // Left-click
-        {
-            HandleDoorToggle();
-        }
-    }
-
-    void TryOpen()
+    /*void TryOpen()
     {
         GameObject player = GameObject.FindWithTag("Player");
         ItemPickup pickup = player.GetComponent<ItemPickup>();
@@ -58,7 +60,6 @@ public class DoorSystem : MonoBehaviour
         {
             if (!hasOpened)
             {
-
                 OpenDoor(player.transform.position);
 
                 if (heldItem != null && requiredKey != KeyType.None)
@@ -74,8 +75,8 @@ public class DoorSystem : MonoBehaviour
         {
             Debug.Log($"[DoorSystem] This door requires: {requiredKey}, but player has: {heldKey}");
         }
-    }
-    void ToggleDoor()
+    }*/
+    /*void ToggleDoor()
     {
         GameObject player = GameObject.FindWithTag("Player");
         Vector3 playerPos = player.transform.position;
@@ -94,8 +95,11 @@ public class DoorSystem : MonoBehaviour
         Debug.Log("[DoorSystem] Door " + (isOpen ? "opened" : "closed"));
         StopAllCoroutines();
         StartCoroutine(RotateDoor(targetRotation));
-    }
+    }*/
 
+    #endregion Deprecated
+
+    /*
     void HandleDoorToggle()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -157,75 +161,127 @@ public class DoorSystem : MonoBehaviour
 
         DoorKey key = item.GetComponent<DoorKey>();
         return key != null ? key.keyType : KeyType.None;
+    }*/
+
+    private IEnumerator RotateDoor(Quaternion targetRotation)
+    {
+        while (Quaternion.Angle(hinge.rotation, targetRotation) > 0.1f)
+        {
+            hinge.rotation = Quaternion.Slerp(hinge.rotation, targetRotation, Time.deltaTime * openSpeed);
+            yield return null;
+        }
+
+        hinge.rotation = targetRotation;
     }
 
-    void OpenDoor(Vector3 playerPos)
+    private void shakeDoor()
     {
-        // Determine which side the player is on
-        Vector3 toPlayer = playerPos - transform.position;
-        float dot = Vector3.Dot(transform.right, toPlayer);
+        StartCoroutine(cor());
 
-        float angle = (dot > 0) ? -openAngle : openAngle;
+        IEnumerator cor()
+        {
+            Debug.Log("[DoorSystem] Already shaking, skipping new shake.");
 
-        Quaternion targetRotation = Quaternion.Euler(0, angle, 0) * transform.rotation;
-        StartCoroutine(RotateDoor(targetRotation));
+            if (isShaking) yield break;
 
+            Debug.Log("[DoorSystem] Starting shake!");
+
+            isShaking = true;
+            float baseY = transform.localEulerAngles.y;
+
+            Quaternion originalRotation = baseRotation;
+
+            while (elapsed < shakeDuration)
+            {
+                float shakeOffset = Mathf.Sin(elapsed * shakeSpeed) * shakeAmount;
+                float currentY = baseY + shakeOffset;
+                transform.localRotation = Quaternion.Euler(0, currentY, 0);
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.rotation = originalRotation;
+            isShaking = false;
+            Debug.Log("[DoorSystem] Shake finished!");
+        }
+    }
+
+    private bool isUnlocked = false;
+
+    private void open()
+    {
         isOpen = true;
-        Debug.Log("[DoorSystem] Door opened to angle: " + angle);
-    }
+        isUnlocked = true;
+        // Open based on player's position
+        OpenDoor_Internal(Player.Instance.transform.position);
 
-    IEnumerator RotateDoor(Quaternion targetRotation)
-    {
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        //your old function, I just copy patse to here
+        void OpenDoor_Internal(Vector3 playerPos)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * openSpeed);
-            yield return null;
+            // Determine which side the player is on
+            Vector3 toPlayer = (Player.Instance.transform.position - transform.position).normalized;
+            float dot = Vector3.Dot(hinge.right, toPlayer); // Check side
+
+            float angle = (dot > 0) ? -openAngle : openAngle;
+
+            //  Rotate from original baseRotation, not current rotation
+            Quaternion targetRotation = Quaternion.Euler(0, angle, 0) * baseRotation;
+            StopAllCoroutines();
+            StartCoroutine(RotateDoor(targetRotation));
+
+            Debug.Log("[DoorSystem] Door opened to angle: " + angle);
+
+            isOpen = true;
+            //Debug.Log("[DoorSystem] Door opened to angle: " + angle);
         }
-
-        transform.rotation = targetRotation;
     }
 
-    GameObject GetHeldItem(ItemPickup pickup)
+    private bool checkOpen()
     {
-        var held = pickup.GetType()
-                         .GetField("heldObject", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                         ?.GetValue(pickup) as GameObject;
-
-        Debug.Log($"[DoorSystem] Held item: {(held != null ? held.name : "None")}");
-        return held;
-    }
-
-    bool HasCorrectKey(GameObject item)
-    {
-        DoorKey key = item.GetComponent<DoorKey>();
-        return key != null && key.keyType == requiredKey;
-    }
-
-    IEnumerator ShakeDoor()
-    {
-        Debug.Log("[DoorSystem] Already shaking, skipping new shake.");
-
-        if (isShaking) yield break;
-
-        Debug.Log("[DoorSystem] Starting shake!");
-
-        isShaking = true;
-        float baseY = transform.localEulerAngles.y;
-
-        Quaternion originalRotation = baseRotation;
-
-        while (elapsed < shakeDuration)
+        //can check if door is unlocked, open freely
+        if (isUnlocked) return true;
+        if (requiredKey == KeyType.None) return true;
+        else
         {
-            float shakeOffset = Mathf.Sin(elapsed * shakeSpeed) * shakeAmount;
-            float currentY = baseY + shakeOffset;
-            transform.localRotation = Quaternion.Euler(0, currentY, 0);
+            var item = Player.Instance.InventorySystem.CurrentHeld;
+            if (item != null && item.GameObject?.GetComponent<DoorKey>() is DoorKey doorKey)
+            {
+                if (requiredKey == doorKey.keyType)
+                {
+                    //spend key succes
+                    Player.Instance.InventorySystem.Remove(item);
+                    Player.Instance.PickItemBehavior.UpdateEquipment();
 
-            elapsed += Time.deltaTime;
-            yield return null;
+                    //destroy key if not need anymore, else just hide it. depend what you guys want
+                    Destroy(item.GameObject);
+                    return true;
+                }
+            }
+
+            return false;
         }
+    }
 
-        transform.rotation = originalRotation;
-        isShaking = false;
-        Debug.Log("[DoorSystem] Shake finished!");
+    private void closeDoor()
+    {
+        isOpen = false;
+        Debug.Log("[DoorSystem] Closing door.");
+        StopAllCoroutines();
+        StartCoroutine(RotateDoor(baseRotation));
+    }
+
+    public void Interact()
+    {
+        if (!isOpen)
+        {
+            if (checkOpen()) open(); // Try to open if unlocked or has the right key
+            else shakeDoor(); // If locked, shake the door for feedback
+        }
+        //cua dang mo
+        else
+        {
+            closeDoor(); // If already open, close it
+        }
     }
 }
