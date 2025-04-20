@@ -11,6 +11,7 @@ TagManager:
   - LightZone
   - Ghost
   - Locked Doors
+  - Fruit
   layers:
   - Default
   - TransparentFX

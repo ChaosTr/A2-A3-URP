@@ -8,7 +8,7 @@ public class FruitCleaner : MonoBehaviour
     {
         if (other.CompareTag("Fruit"))
         {
-            FruitItem fruit = other.GetComponent<FruitItem>();
+            PlaceableFruit fruit = other.GetComponent<PlaceableFruit>();
             if (fruit != null && !fruit.isClean)
             {
                 fruit.Clean();

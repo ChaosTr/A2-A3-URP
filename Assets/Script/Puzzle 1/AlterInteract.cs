@@ -4,94 +4,133 @@ using UnityEngine;
 
 public class AlterInteract : MonoBehaviour, IInteract
 {
-    // List of required fruits for the puzzle
     public List<FruitType> requiredFruits = new List<FruitType> { FruitType.apple, FruitType.mangcau, FruitType.banana };
-
-    // Track fruits that have already been placed
     private HashSet<FruitType> placedFruits = new HashSet<FruitType>();
 
-    // Slot transforms for visual placement on the altar (assign in inspector)
-    public Transform appleSlot;
-    public Transform mangcauSlot;
-    public Transform bananaSlot;
+    private bool platePlaced = false;
 
-    // Called when the player interacts with the altar
+    // GameObjects on the altar (set inactive at start)
+    public GameObject altarPlate;
+    public GameObject appleOnPlate;
+    public GameObject coconutOnPlate;
+    public GameObject papayaOnPlate;
+
+    public void Start()
+    {
+        altarPlate.SetActive(false);
+        appleOnPlate.SetActive(false);
+        coconutOnPlate.SetActive(false);
+        papayaOnPlate.SetActive(false);
+    }
+
     public void Interact()
     {
         var heldItem = Player.Instance.InventorySystem.CurrentHeld;
 
-        if (heldItem != null && heldItem.GameObject.TryGetComponent(out PlaceableFruit fruit))
+        if (heldItem == null)
         {
-            // Step 1: Check if the fruit type is required
-            if (!requiredFruits.Contains(fruit.fruitType))
+            Debug.Log("[Altar] You must hold something to place it.");
+            return;
+        }
+
+        // ========== PLATE LOGIC ==========
+        if (heldItem.GameObject.TryGetComponent(out PlaceablePlate plate))
+        {
+            if (platePlaced)
             {
-                Debug.Log("[Altar] This fruit is not part of the required offering.");
+                Debug.Log("[Altar] Plate is already placed.");
                 return;
             }
 
-            // Step 2: Check if it's already placed
-            if (placedFruits.Contains(fruit.fruitType))
+            if (!plate.isClean)
             {
-                Debug.Log("[Altar] You've already placed this type of fruit.");
+                Debug.Log("[Altar] The plate is dirty. Clean it first.");
                 return;
             }
 
-            // Step 3: Check if the fruit is clean
+            // Place the plate
+            platePlaced = true;
+            Player.Instance.InventorySystem.Remove(heldItem);
+            Destroy(heldItem.GameObject);
+            Player.Instance.PickItemBehavior.UpdateEquipment();
+            altarPlate.SetActive(true);
+
+            Debug.Log("[Altar] Plate placed.");
+            return; // Important: return early so we don't run fruit logic
+        }
+
+        // ========== FRUIT LOGIC ==========
+        if (heldItem.GameObject.TryGetComponent(out PlaceableFruit fruit))
+        {
+            if (!platePlaced)
+            {
+                Debug.Log("[Altar] You must place the plate before offering fruit.");
+                return;
+            }
+
+            FruitType heldType = fruit.fruitType;
+
+            if (!requiredFruits.Contains(heldType))
+            {
+                Debug.Log("[Altar] This fruit is not part of the ritual.");
+                return;
+            }
+
+            if (placedFruits.Contains(heldType))
+            {
+                Debug.Log("[Altar] You've already placed this fruit.");
+                return;
+            }
+
             if (!fruit.isClean)
             {
-                Debug.Log("[Altar] This fruit is dirty. Clean it before offering.");
+                Debug.Log("[Altar] The fruit is dirty. Clean it first.");
                 return;
             }
 
-            // Step 4: Get corresponding altar slot
-            Transform slot = GetSlotForFruit(fruit.fruitType);
-            if (slot != null)
-            {
-                // Snap fruit to altar slot
-                fruit.transform.position = slot.position;
-                fruit.transform.rotation = slot.rotation;
-                fruit.transform.SetParent(slot);
+            placedFruits.Add(heldType);
+            Player.Instance.InventorySystem.Remove(heldItem);
+            Destroy(heldItem.GameObject);
+            Player.Instance.PickItemBehavior.UpdateEquipment();
+            ActivateFruitOnPlate(heldType);
+            Debug.Log($"[Altar] Placed {heldType}.");
 
-                // Mark as placed
-                placedFruits.Add(fruit.fruitType);
-
-                // Remove from inventory and update held item UI
-                Player.Instance.InventorySystem.Remove(heldItem);
-                Player.Instance.PickItemBehavior.UpdateEquipment();
-
-                Debug.Log($"[Altar] Placed {fruit.fruitType} on altar.");
-
-                // Step 5: Check if puzzle is complete
-                if (placedFruits.Count == requiredFruits.Count)
-                {
-                    Debug.Log("[Altar] All fruits placed. Puzzle complete!");
-                    OnPuzzleComplete();
-                }
-            }
+            CheckPuzzleCompletion();
+            return;
         }
-        else
-        {
-            Debug.Log("[Altar] You must hold a fruit to place it.");
-        }
+
+        Debug.Log("[Altar] This item cannot be placed here.");
     }
 
-    // Returns the correct altar slot based on fruit type
-    private Transform GetSlotForFruit(FruitType type)
+    private void ActivateFruitOnPlate(FruitType type)
     {
         switch (type)
         {
-            case FruitType.apple: return appleSlot;
-            case FruitType.mangcau: return mangcauSlot;
-            case FruitType.banana: return bananaSlot;
-            default: return null;
+            case FruitType.apple:
+                appleOnPlate.SetActive(true);
+                break;
+            case FruitType.mangcau:
+                coconutOnPlate.SetActive(true);
+                break;
+            case FruitType.banana:
+                papayaOnPlate.SetActive(true);
+                break;
         }
     }
 
-    // Called when all required fruits are placed
+    private void CheckPuzzleCompletion()
+    {
+        if (platePlaced && placedFruits.Count == requiredFruits.Count)
+        {
+            Debug.Log("[Altar] All offerings complete. The ritual is done.");
+            OnPuzzleComplete();
+        }
+    }
+
     private void OnPuzzleComplete()
     {
-        // TODO: Add your puzzle completion logic (e.g., open door, play sound, summon ghost)
-        Debug.Log("[Altar] Ritual complete. Proceed with next sequence.");
+        // Trigger your next event: ghost, camera cut, etc.
+        Debug.Log("[Altar] Ritual complete! Something responds...");
     }
 
 }
