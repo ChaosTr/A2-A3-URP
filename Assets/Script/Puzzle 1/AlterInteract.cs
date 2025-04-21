@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class AlterInteract : MonoBehaviour, IInteract
 {
-    public List<FruitType> requiredFruits = new List<FruitType> { FruitType.apple, FruitType.mangcau, FruitType.banana };
+    public List<FruitType> requiredFruits = new List<FruitType> { FruitType.grape, FruitType.banana }; //FruitType.mangcau
     private HashSet<FruitType> placedFruits = new HashSet<FruitType>();
 
     private bool platePlaced = false;
 
     // GameObjects on the altar (set inactive at start)
     public GameObject altarPlate;
-    public GameObject appleOnPlate;
-    public GameObject coconutOnPlate;
-    public GameObject papayaOnPlate;
+    public GameObject grapeOnPlate;
+    //public GameObject coconutOnPlate;
+    public GameObject bananaOnPlate;
+
+    public PuzzleChecker puzzleCheckerScript;
 
     public void Start()
     {
         altarPlate.SetActive(false);
-        appleOnPlate.SetActive(false);
-        coconutOnPlate.SetActive(false);
-        papayaOnPlate.SetActive(false);
+        grapeOnPlate.SetActive(false);
+        //coconutOnPlate.SetActive(false);
+        bananaOnPlate.SetActive(false);
     }
 
     public void Interact()
@@ -82,11 +84,13 @@ public class AlterInteract : MonoBehaviour, IInteract
                 return;
             }
 
+            /*
             if (!fruit.isClean)
             {
                 Debug.Log("[Altar] The fruit is dirty. Clean it first.");
                 return;
             }
+            */
 
             placedFruits.Add(heldType);
             Player.Instance.InventorySystem.Remove(heldItem);
@@ -106,14 +110,16 @@ public class AlterInteract : MonoBehaviour, IInteract
     {
         switch (type)
         {
-            case FruitType.apple:
-                appleOnPlate.SetActive(true);
+            case FruitType.grape:
+                grapeOnPlate.SetActive(true);
                 break;
+            /*
             case FruitType.mangcau:
                 coconutOnPlate.SetActive(true);
                 break;
+            */
             case FruitType.banana:
-                papayaOnPlate.SetActive(true);
+                bananaOnPlate.SetActive(true);
                 break;
         }
     }
@@ -131,6 +137,7 @@ public class AlterInteract : MonoBehaviour, IInteract
     {
         // Trigger your next event: ghost, camera cut, etc.
         Debug.Log("[Altar] Ritual complete! Something responds...");
+        puzzleCheckerScript.puzzle1Done = true;
     }
 
 }

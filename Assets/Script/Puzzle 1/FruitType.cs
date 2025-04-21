@@ -4,9 +4,10 @@ using UnityEngine;
 
 public enum FruitType
 {
-    apple,
+    grape,
     mangcau,
     coconut,
-    banana
+    banana,
+    dirtyBasket
 }
 

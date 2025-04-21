@@ -12,6 +12,7 @@ TagManager:
   - Ghost
   - Locked Doors
   - Fruit
+  - Water
   layers:
   - Default
   - TransparentFX
