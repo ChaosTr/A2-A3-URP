@@ -7,6 +7,7 @@ public class FaucetInteraction : MonoBehaviour, IInteract
     public ParticleSystem waterParticle;     // Assign your water Particle System in inspector
     public float interactDistance = 3f;      // How close the player must be
     private bool isOn = false;
+    public BoxCollider waterCol;
 
     void Start()
     {
@@ -39,9 +40,17 @@ public class FaucetInteraction : MonoBehaviour, IInteract
         isOn = !isOn;
 
         if (isOn)
+        {
             waterParticle.Play();
+            waterCol.enabled = true;
+
+        }
+
         else
+        {
+            waterCol.enabled = false;
             waterParticle.Stop();
+        }
 
         // Optional: Debug
         Debug.Log("Faucet turned " + (isOn ? "on" : "off"));
