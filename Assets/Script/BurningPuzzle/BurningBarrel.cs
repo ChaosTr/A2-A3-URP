@@ -15,6 +15,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
     private bool canBurn = false;
     private bool hasIgnited = false;
     public GameObject fireEffect;
+    public PuzzleChecker puzzleCheckerScript;
 
     void Start()
     {
@@ -104,6 +105,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         // Do whatever you want — open door, play cutscene, etc.
         StartCoroutine(AfterBurning());
         Debug.Log("[IronBarrel] Triggering puzzle result!");
+        puzzleCheckerScript.puzzle2Done = true;
     }
 
     IEnumerator AfterBurning()
