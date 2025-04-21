@@ -323,10 +323,10 @@ GameObject:
   - component: {fileID: 4729773027852060930}
   - component: {fileID: 8506275050844292775}
   - component: {fileID: 5902155735194104429}
-  - component: {fileID: 1517494868475235636}
-  - component: {fileID: 4839076154597918205}
-  - component: {fileID: 3454532928800884674}
   - component: {fileID: 3142342921833054238}
+  - component: {fileID: 4839076154597918205}
+  - component: {fileID: 1517494868475235636}
+  - component: {fileID: 3454532928800884674}
   - component: {fileID: 4229186738217564525}
   m_Layer: 0
   m_Name: Dirty Basket
@@ -407,18 +407,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1517494868475235636
-MonoBehaviour:
+--- !u!65 &3142342921833054238
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5397660012575773624}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0035fdce63368f648a4e83a49a56cbcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Size: {x: 0.0053651026, y: 0.0051387222, z: 0.0022996261}
+  m_Center: {x: 0, y: 3.539419e-19, z: 0.000049812887}
 --- !u!114 &4839076154597918205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,14 +458,14 @@ MonoBehaviour:
   zoomSensitivity: 0.1
   rotationSpeed: 5
   invertRotation: 0
-  showEmissionHighlight: 1
-  showNameHighlight: 0
+  showEmissionHighlight: 0
+  showNameHighlight: 1
   _hasInspectPoints: 0
   inspectPoints: []
   pickupSound: {fileID: 0}
   dropSound: {fileID: 0}
   _UIType: 0
-  itemName: 
+  itemName: DirtyBasket
   textSize: 32
   fontType: {fileID: 0}
   fontColor: {r: 1, g: 1, b: 1, a: 1}
@@ -465,6 +474,18 @@ MonoBehaviour:
   fontTypeDesc: {fileID: 0}
   fontColorDesc: {r: 1, g: 1, b: 1, a: 1}
   postProcessVolume: {fileID: 0}
+--- !u!114 &1517494868475235636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5397660012575773624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0035fdce63368f648a4e83a49a56cbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &3454532928800884674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -485,27 +506,6 @@ BoxCollider:
   m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.0053651026, y: 0.005138722, z: 0.002299626}
-  m_Center: {x: 0, y: 3.539419e-19, z: 0.000049812887}
---- !u!65 &3142342921833054238
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5397660012575773624}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0053651026, y: 0.0051387222, z: 0.0022996261}
   m_Center: {x: 0, y: 3.539419e-19, z: 0.000049812887}
 --- !u!54 &4229186738217564525
 Rigidbody:
@@ -530,10 +530,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &6564763073816191907
 GameObject:
   m_ObjectHideFlags: 0

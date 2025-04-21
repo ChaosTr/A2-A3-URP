@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3565191368567264239
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 27.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 27.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 27.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.876
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.5606
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22.194
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6525336
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.07046665
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.10533544
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.74708694
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -194.439
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 178.096
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -82.51199
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_Name
+      value: CrowbarV2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -204486273140794109}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8003805059869770350}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607545200157287567}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5869830090241125228}
+  m_SourcePrefab: {fileID: 100100000, guid: 134658ff74da32c4089ab089c09ca2e4, type: 3}
+--- !u!1 &4448276020280209086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 134658ff74da32c4089ab089c09ca2e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3565191368567264239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-204486273140794109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448276020280209086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5b6aa6b3566364587f090d611bd5c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEmptyParent: 0
+  _hasChildren: 0
+  childObjects: []
+  initialRotationOffset: {x: 0, y: 0, z: 0}
+  horizontalOffset: 0
+  verticalOffset: 0
+  smoothExamineSpeed: 0.2
+  initialZoom: 0.3
+  zoomRange: {x: 0.1, y: 2}
+  zoomSensitivity: 0.1
+  rotationSpeed: 5
+  invertRotation: 0
+  showEmissionHighlight: 0
+  showNameHighlight: 1
+  _hasInspectPoints: 0
+  inspectPoints: []
+  pickupSound: {fileID: 0}
+  dropSound: {fileID: 0}
+  _UIType: 1
+  itemName: Crowbar
+  textSize: 32
+  fontType: {fileID: 11400000, guid: c0df65a59cc8342d48d94377c27a5b99, type: 2}
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  itemDescription: Maybe this can open a door..?
+  textSizeDesc: 30
+  fontTypeDesc: {fileID: 11400000, guid: c0df65a59cc8342d48d94377c27a5b99, type: 2}
+  fontColorDesc: {r: 1, g: 1, b: 1, a: 1}
+  postProcessVolume: {fileID: 0}
+--- !u!114 &8003805059869770350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448276020280209086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0035fdce63368f648a4e83a49a56cbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1607545200157287567
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448276020280209086}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.035071444, y: 0.006071433, z: 0.0017142866}
+  m_Center: {x: -0.0004642858, y: 0.0015357147, z: -3.1422165e-10}
+--- !u!54 &5869830090241125228
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448276020280209086}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
