@@ -19,17 +19,22 @@ public class FadeInFadeOut : MonoBehaviour
     }
     public void WakeUp()
     {
-        StartCoroutine(FadeIn());
+        StartCoroutine(Wakey());
     }
-    public void BlackScreenOut()
-    {
-        StartCoroutine(FadeOut());
-    }
-
     public void PassOut()
     {
         StartCoroutine(Fainting());
     }
+
+    public void BlackScreenOut()
+    {
+        StartCoroutine(FadeOut());
+    }
+    public void BlackScreenIn()
+    {
+        StartCoroutine(FadeIn());
+    }
+
     public IEnumerator FadeOut()
     {
         //Debug.Log("StartFading");
@@ -51,6 +56,29 @@ public class FadeInFadeOut : MonoBehaviour
         // When done turn off the black screen
         blackScreen.SetActive(false);
     }
+
+    public IEnumerator FadeIn()
+    {
+        //Debug.Log("StartFading");
+        blackScreen.SetActive(true);
+        fadeCanvasGroup.alpha = 1f;
+
+        // Increase the alpha of the black screen img
+        fadeCanvasGroup.blocksRaycasts = true;
+        float time = 1.5f;
+        while (time > 0f)
+        {
+            time -= Time.deltaTime;
+            fadeCanvasGroup.alpha = time / fadeDuration;
+            yield return null;
+        }
+        fadeCanvasGroup.alpha = 0f;
+        yield return new WaitForSeconds(0.2f);
+
+        // When done turn off the black screen
+        blackScreen.SetActive(false);
+    }
+
     public IEnumerator Fainting()
     {
         //Debug.Log("StartFading");
@@ -70,7 +98,7 @@ public class FadeInFadeOut : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
     }
 
-    public IEnumerator FadeIn()
+    public IEnumerator Wakey()
     {
         float time = fadeDuration;
         while (time > 0f)
