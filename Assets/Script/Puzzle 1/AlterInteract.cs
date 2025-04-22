@@ -7,11 +7,6 @@ public class AlterInteract : MonoBehaviour, IInteract
 {
     public List<FruitType> requiredFruits = new List<FruitType> { FruitType.grape, FruitType.banana }; //FruitType.mangcau
     private HashSet<FruitType> placedFruits = new HashSet<FruitType>();
-    [SerializeField] private GoldPlayerController controller;
-    [SerializeField] private LightFlickering lightFlicker;
-    [SerializeField] private LightFlickering lightFlicker1;
-    [SerializeField] private LightFlickering lightFlicker2;
-    [SerializeField] private GameObject humanFigure;
 
     private bool platePlaced = false;
 
@@ -22,6 +17,14 @@ public class AlterInteract : MonoBehaviour, IInteract
     public GameObject bananaOnPlate;
 
     public PuzzleChecker puzzleCheckerScript;
+
+    [Header("=========Light Flicker Script=========")]
+    [SerializeField] private GoldPlayerController controller;
+    [SerializeField] private LightFlickering lightFlicker;
+    [SerializeField] private LightFlickering lightFlicker1;
+    [SerializeField] private LightFlickering lightFlicker2;
+
+
 
     public void Start()
     {
@@ -144,22 +147,22 @@ public class AlterInteract : MonoBehaviour, IInteract
         // Trigger your next event: ghost, camera cut, etc.
         Debug.Log("[Altar] Ritual complete! Something responds...");
         StartCoroutine(PuzzleFinished());
-        //puzzleCheckerScript.puzzle1Done = true;
-        
+        puzzleCheckerScript.puzzle1Done = true;
+
     }
 
     IEnumerator PuzzleFinished()
     {
-        yield return null;
-        controller.enabled = false;
+        yield return new WaitForSeconds(2f);
         lightFlicker.enabled = true;
-        humanFigure.SetActive(true);
+        //controller.enabled = false;
+        //humanFigure.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
-        humanFigure.SetActive(false);
-        controller.enabled = true;
+        yield return new WaitForSeconds(4f);
         lightFlicker.enabled = false;
-        puzzleCheckerScript.puzzle1Done = true;
+        //humanFigure.SetActive(false);
+        //controller.enabled = true;
+        //puzzleCheckerScript.puzzle1Done = true;
 
     }
 

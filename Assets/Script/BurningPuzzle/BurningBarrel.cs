@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Hertzole.GoldPlayer;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class IronBarrelBurner : MonoBehaviour, IInteract
 {
@@ -20,6 +21,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
 
     public GoldPlayerController playerScript;
     public SwitchCamera switchCameraScript;
+    public LightFlickering lightFlickeringScript;
 
     void Start()
     {
@@ -115,13 +117,14 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
     IEnumerator AfterBurning()
     {
         StartCoroutine(DisableMovement());
-
-        yield return new WaitForSeconds(3.5f);
+        lightFlickeringScript.enabled = true;
         burnPile.SetActive(true);
         pile1.SetActive(false);
         pile2.SetActive(false);
         pile3.SetActive(false);
 
+        yield return new WaitForSeconds(3f);
+        lightFlickeringScript.enabled = false;
         yield return new WaitForSeconds(10f);
         fireEffect.SetActive(false);
     }
@@ -131,11 +134,13 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         playerScript.Camera.CanLookAround = false;
         playerScript.enabled = false;
         Debug.Log("Stop Now");
+        lightFlickeringScript.enabled = true;
 
         yield return new WaitForSeconds(2.5f);
         Debug.Log("Can Move Again");
         playerScript.Camera.CanLookAround = true;
         playerScript.enabled = true;
+        lightFlickeringScript.enabled = false;
     }
 }
 
