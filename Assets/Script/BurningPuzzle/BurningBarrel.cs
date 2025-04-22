@@ -23,11 +23,26 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
     public SwitchCamera switchCameraScript;
     public LightFlickering lightFlickeringScript;
 
+
+    public Animator matchBox;
+    public Animator matchStick;
+    public GameObject matchFire;
+    public GameObject matchOnHand;
+
     void Start()
     {
         pile1.SetActive(false);
         pile2.SetActive(false);
         pile3.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            matchBox.SetBool("Light", true);
+            matchStick.SetBool("Light", true);
+        }
     }
 
 
@@ -84,7 +99,8 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
                 Player.Instance.PickItemBehavior.UpdateEquipment();
 
                 Debug.Log("[IronBarrel] Matchbox used - fire ignited!");
-                fireEffect.SetActive(true); // Play fire particles or animation
+                //fireEffect.SetActive(true); // Play fire particles or animation
+                matchOnHand.SetActive(true);
                 OnPuzzleComplete();
                 return;
             }
@@ -110,13 +126,13 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
     {
         // Do whatever you want — open door, play cutscene, etc.
         StartCoroutine(AfterBurning());
+        StartCoroutine(MatchAnimation());
         Debug.Log("[IronBarrel] Triggering puzzle result!");
         puzzleCheckerScript.puzzle2Done = true;
     }
 
     IEnumerator AfterBurning()
     {
-        StartCoroutine(DisableMovement());
         lightFlickeringScript.enabled = true;
         burnPile.SetActive(true);
         pile1.SetActive(false);
@@ -127,6 +143,20 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         lightFlickeringScript.enabled = false;
         yield return new WaitForSeconds(10f);
         fireEffect.SetActive(false);
+    }
+
+    IEnumerator MatchAnimation()
+    {
+        StartCoroutine(DisableMovement());
+        matchBox.SetBool("Light", true);
+        matchStick.SetBool("Light", true);
+        yield return new WaitForSeconds(1f);
+        matchFire.SetActive(true);
+
+        yield return new WaitForSeconds(1.9f);
+        fireEffect.SetActive(true);
+
+
     }
 
     IEnumerator DisableMovement()
@@ -141,6 +171,8 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         playerScript.Camera.CanLookAround = true;
         playerScript.enabled = true;
         lightFlickeringScript.enabled = false;
+
+        matchOnHand.SetActive(false);
     }
 }
 
