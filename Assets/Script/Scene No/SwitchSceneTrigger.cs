@@ -15,6 +15,7 @@ public class SwitchSceneTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(BadEnding());
+            Debug.Log("detected");
         }
 
         
@@ -22,7 +23,9 @@ public class SwitchSceneTrigger : MonoBehaviour
     IEnumerator BadEnding()
     {
         yield return new WaitForSeconds(1f);
+        
         fade.FadeIn();
+        Debug.Log("yo");
         controller.enabled = false;
         //yield return new WaitForSeconds(3f);
         //playaudio source
