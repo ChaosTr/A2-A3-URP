@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Hertzole.GoldPlayer;
 using UnityEngine;
 
 public class IronBarrelBurner : MonoBehaviour, IInteract
@@ -16,6 +17,9 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
     private bool hasIgnited = false;
     public GameObject fireEffect;
     public PuzzleChecker puzzleCheckerScript;
+
+    public GoldPlayerController playerScript;
+    public SwitchCamera switchCameraScript;
 
     void Start()
     {
@@ -110,11 +114,28 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
 
     IEnumerator AfterBurning()
     {
+        StartCoroutine(DisableMovement());
+
         yield return new WaitForSeconds(3.5f);
         burnPile.SetActive(true);
         pile1.SetActive(false);
         pile2.SetActive(false);
         pile3.SetActive(false);
+
+        yield return new WaitForSeconds(10f);
+        fireEffect.SetActive(false);
+    }
+
+    IEnumerator DisableMovement()
+    {
+        playerScript.Camera.CanLookAround = false;
+        playerScript.enabled = false;
+        Debug.Log("Stop Now");
+
+        yield return new WaitForSeconds(2.5f);
+        Debug.Log("Can Move Again");
+        playerScript.Camera.CanLookAround = true;
+        playerScript.enabled = true;
     }
 }
 
