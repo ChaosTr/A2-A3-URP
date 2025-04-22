@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ExamineSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PuzzleChecker : MonoBehaviour
 {
@@ -15,12 +16,22 @@ public class PuzzleChecker : MonoBehaviour
     [SerializeField] private FadeToWhite fadeToWhite;
     private bool firstTriggered = false;
     private bool secondTriggered = false;
+    private bool onSpot;
+    public Animator sealedDoor;
 
     void Start()
     {
         puzzle1Done = false;
         puzzle2Done = false;
         //doorSystem.enabled = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            onSpot = true;
+        }
     }
     void Update()
     {
@@ -38,14 +49,11 @@ public class PuzzleChecker : MonoBehaviour
             GainKinematicBack();
             talisMan2.GetComponent<Rigidbody>().isKinematic = false;
         }
-        if (puzzle1Done && puzzle2Done && !isTriggered)
+        if (puzzle1Done && puzzle2Done && !isTriggered && onSpot)
         {
             isTriggered = true;
-            //doorSystem.enabled = true;
-            //Debug.Log("Door is open, triggering fade...");
-            //fadeToWhite.TriggerFadeAndQuestion();
-
-            Debug.Log("Door open now");
+            StartCoroutine(LoadWhiteScreen());
+            sealedDoor.SetBool("Open", true);
         }
     }
 
@@ -54,5 +62,16 @@ public class PuzzleChecker : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         talisMan1.GetComponent<Rigidbody>().isKinematic = true;
         talisMan2.GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    IEnumerator LoadWhiteScreen()
+    {
+        Debug.Log("NewScene");
+        yield return null;
+        //sealedDoor.SetBool("Open", true);
+
+        //yield return new WaitForSeconds(1.4f);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); REMEBER add scene in the build Index
+
     }
 }
