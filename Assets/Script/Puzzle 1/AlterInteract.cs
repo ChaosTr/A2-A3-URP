@@ -1,3 +1,4 @@
+using Hertzole.GoldPlayer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,11 @@ public class AlterInteract : MonoBehaviour, IInteract
 {
     public List<FruitType> requiredFruits = new List<FruitType> { FruitType.grape, FruitType.banana }; //FruitType.mangcau
     private HashSet<FruitType> placedFruits = new HashSet<FruitType>();
+    [SerializeField] private GoldPlayerController controller;
+    [SerializeField] private LightFlickering lightFlicker;
+    [SerializeField] private LightFlickering lightFlicker1;
+    [SerializeField] private LightFlickering lightFlicker2;
+    [SerializeField] private GameObject humanFigure;
 
     private bool platePlaced = false;
 
@@ -137,7 +143,24 @@ public class AlterInteract : MonoBehaviour, IInteract
     {
         // Trigger your next event: ghost, camera cut, etc.
         Debug.Log("[Altar] Ritual complete! Something responds...");
+        StartCoroutine(PuzzleFinished());
+        //puzzleCheckerScript.puzzle1Done = true;
+        
+    }
+
+    IEnumerator PuzzleFinished()
+    {
+        yield return null;
+        controller.enabled = false;
+        lightFlicker.enabled = true;
+        humanFigure.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+        humanFigure.SetActive(false);
+        controller.enabled = true;
+        lightFlicker.enabled = false;
         puzzleCheckerScript.puzzle1Done = true;
+
     }
 
 }

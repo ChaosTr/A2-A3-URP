@@ -8,8 +8,9 @@ public class DoorSystem : MonoBehaviour, IInteract
     public float openAngle = 90f;
     public float openSpeed = 3f;
     public float interactDistance = 3f;
+    
 
-    //public AudioSource audioSource;
+    public AudioSource audioSource;
     //public AudioClip openClip;
     //public AudioClip closeClip;
     //public AudioClip lockedClip;
@@ -20,7 +21,7 @@ public class DoorSystem : MonoBehaviour, IInteract
     public float shakeSpeed = 50f;
     public float elapsed = 0f;
 
-    private bool isOpen = false;
+    public bool isOpen;
     private bool hasOpened = false;
     private Vector3 initialForward;
     private bool isShaking;
@@ -31,6 +32,7 @@ public class DoorSystem : MonoBehaviour, IInteract
 
         initialForward = transform.forward;
         baseRotation = hinge.rotation;
+        isOpen = false;
     }
 
     #region Deprecated
@@ -180,9 +182,12 @@ public class DoorSystem : MonoBehaviour, IInteract
 
         IEnumerator cor()
         {
+            audioSource.Play();
             Debug.Log("[DoorSystem] Already shaking, skipping new shake.");
 
             if (isShaking) yield break;
+
+            //audioSource.Play();
 
             Debug.Log("[DoorSystem] Starting shake!");
 
@@ -200,6 +205,7 @@ public class DoorSystem : MonoBehaviour, IInteract
                 elapsed += Time.deltaTime;
                 yield return null;
             }
+            //saudioSource.Play();
 
             transform.rotation = originalRotation;
             isShaking = false;
@@ -212,6 +218,7 @@ public class DoorSystem : MonoBehaviour, IInteract
     public void open()
     {
         isOpen = true;
+        Debug.Log(isOpen);
         isUnlocked = true;
         // Open based on player's position
         OpenDoor_Internal(Player.Instance.transform.position);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GhostRun : MonoBehaviour
 {
     public GameObject ghost;
-    //public AudioSource auidio;
+    public AudioSource audioSource;
     //public Transform runPoint;
     //public DoorSystem doorSystem;
     //public float moveSpeed;
@@ -27,6 +27,7 @@ public class GhostRun : MonoBehaviour
         if (isTriggered) return;
         if (other.CompareTag("Player"))
         {
+            audioSource.Play();
             //doorSystem.closeDoor();
             StartCoroutine(RotateGhost());
         }

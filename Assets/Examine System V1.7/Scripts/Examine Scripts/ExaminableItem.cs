@@ -297,7 +297,7 @@ namespace ExamineSystem
                 }
             }
 
-            if (rb != null) rb.isKinematic = false;
+            if (rb != null) rb.isKinematic = true;
 
             switch (_UIType)
             {
