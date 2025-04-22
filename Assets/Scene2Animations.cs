@@ -73,7 +73,7 @@ public class Scene2Animations : MonoBehaviour
         humanFigure.SetActive(false);
 
         //Turn off pray + HumanFigure, turn on player again
-        yield return new WaitForSeconds(4.3f);
+        yield return new WaitForSeconds(5f);
         prayCam.SetActive(false);
         player.SetActive(true);
         movementScript.enabled = true;
