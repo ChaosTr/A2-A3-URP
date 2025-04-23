@@ -13,7 +13,7 @@ public class PuzzleChecker : MonoBehaviour
     public GameObject talisMan2;
 
     //[SerializeField] private DoorSystem doorSystem;
-    [SerializeField] private FadeToWhite fadeToWhite;
+    [SerializeField] private FadingWhite fadeToWhite;
     private bool firstTriggered = false;
     private bool secondTriggered = false;
     private bool onSpot;
@@ -31,6 +31,13 @@ public class PuzzleChecker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             onSpot = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            onSpot = false;
         }
     }
     void Update()
@@ -67,11 +74,12 @@ public class PuzzleChecker : MonoBehaviour
     IEnumerator LoadWhiteScreen()
     {
         Debug.Log("NewScene");
-        yield return null;
+        fadeToWhite.FadeInToWhite();
+        yield return new WaitForSeconds(2.5f);
         //sealedDoor.SetBool("Open", true);
 
-        //yield return new WaitForSeconds(1.4f);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); REMEBER add scene in the build Index
+        //yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //REMEBER add scene in the build Index
 
     }
 }
