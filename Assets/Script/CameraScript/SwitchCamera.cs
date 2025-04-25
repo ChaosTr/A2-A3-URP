@@ -59,22 +59,7 @@ public class SwitchCamera : MonoBehaviour
 
     void Update()
     {
-        /*
-        // Press E equip Camera first
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (camOnHand)
-            {
-                return;
-            }
-            else
-            {
-                equipCam = !equipCam;
-                CameraEquiped();
-            }
-        }
-        */
-
+        // Camera battery
         if (batteryScript.batteryEmpty == true && !isTriggered)
         {
             if (!camOnHand) // turning OFF the Spiritual Camera
@@ -84,7 +69,6 @@ public class SwitchCamera : MonoBehaviour
                     ExamineSystem.ExamineUIManager.instance.examinableItem.ForceDropIfExamining();
 
                 }
-                //StartCoroutine(Fading());
             }
             isTriggered = true;
         }
@@ -105,13 +89,11 @@ public class SwitchCamera : MonoBehaviour
                     }
                     StartCoroutine(Fading());
                 }
-
                 StartCoroutine(ToggleCamera()); // Toggle between FPS camera and Cam Obj
 
-                //ToggleCollider(camOnHand); // Enable or Disable invisible object colliders based on camOnHand
                 if (!camOnHand)
                 {
-                    //StartCoroutine(Fading());
+                    return;
                 }
             }
             if (batteryScript.batteryEmpty == true)
@@ -128,12 +110,8 @@ public class SwitchCamera : MonoBehaviour
 
     public IEnumerator ToggleCamera()
     {
-        //fadeOutScript.BlackScreenOut(); 
-
-
         yield return new WaitForSeconds(1.1f); // wait for animation to finish
 
-        //fadeOutScript.BlackScreenOut();
         // Switch view
         fpsCam.enabled = !camOnHand;
         camView.enabled = camOnHand;
@@ -165,13 +143,4 @@ public class SwitchCamera : MonoBehaviour
             }
         }
     }
-
-    /*
-    public void CameraEquiped()
-    {
-        camAnimator.SetBool("OnHand", equipCam);
-        camAnimator.SetBool("1stTimeTrigger", equipCam);
-        camAnimator.SetBool("TakeCamOff", true);
-    }
-    */
 }

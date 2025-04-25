@@ -6,32 +6,15 @@ public class GhostRun : MonoBehaviour
 {
     public GameObject ghost;
     public AudioSource audioSource;
-    //public Transform runPoint;
-    //public DoorSystem doorSystem;
-    //public float moveSpeed;
-    //public Transform door;
-
-    //private Collider boxCollider;
     private bool isTriggered = false;
-
-    void Awake()
-    {
-
-        //boxCollider = GetComponent<Collider>();
-        //door.transform.rotation = Quaternion.Euler(0, -90f, 0);
-
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (isTriggered) return;
         if (other.CompareTag("Player"))
         {
             audioSource.Play();
-            //doorSystem.closeDoor();
             StartCoroutine(RotateGhost());
         }
-
     }
 
     IEnumerator RotateGhost()
@@ -50,13 +33,9 @@ public class GhostRun : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / duration);
             ghost.transform.rotation = Quaternion.Slerp(initialRotation, peekRotation, t);
             yield return null;
-
         }
-        yield return new WaitForSeconds(0.5f);
 
+        yield return new WaitForSeconds(0.5f);
         Destroy(ghost);
     }
-
-
-
 }

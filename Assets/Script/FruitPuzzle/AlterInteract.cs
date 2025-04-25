@@ -93,14 +93,6 @@ public class AlterInteract : MonoBehaviour, IInteract
                 return;
             }
 
-            /*
-            if (!fruit.isClean)
-            {
-                Debug.Log("[Altar] The fruit is dirty. Clean it first.");
-                return;
-            }
-            */
-
             placedFruits.Add(heldType);
             Player.Instance.InventorySystem.Remove(heldItem);
             Destroy(heldItem.GameObject);
@@ -155,15 +147,8 @@ public class AlterInteract : MonoBehaviour, IInteract
     {
         yield return new WaitForSeconds(2f);
         lightFlicker.enabled = true;
-        //controller.enabled = false;
-        //humanFigure.SetActive(true);
 
         yield return new WaitForSeconds(4f);
         lightFlicker.enabled = false;
-        //humanFigure.SetActive(false);
-        //controller.enabled = true;
-        //puzzleCheckerScript.puzzle1Done = true;
-
     }
-
 }

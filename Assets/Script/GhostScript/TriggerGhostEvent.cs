@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class TriggerGhostEvent : MonoBehaviour
 {
-    public MovingGhost ghostScript;
-    public Animator doorAnim;
+    [Header("=========Objects=========")]
     public Light light1, light2;
+    public GameObject hiddenWall;
+    public Animator doorAnim;
+    [Header("=========Script=========")]
+    public MovingGhost ghostScript;
     public CameraShaker shake;
+    public GoldPlayerController movementScript;
+    [Header("=========Audio=========")]
     public AudioSource ghostSound;
     public AudioSource doorSlam;
+    [Header("=========Bool=========")]
     private bool hasTriggered = false;
-    public GameObject hiddenWall;
-    public GoldPlayerController movementScript;
 
     void OnTriggerEnter(Collider other)
     {
