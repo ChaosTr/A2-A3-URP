@@ -10,7 +10,6 @@ public class WashingScript : MonoBehaviour
     {
         if (other.CompareTag("Water"))
         {
-            Debug.Log("Wahing");
             cleanBasket.SetActive(true);
             this.gameObject.SetActive(false);
         }

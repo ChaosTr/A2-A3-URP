@@ -65,29 +65,21 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
 
                 if (heldType == PaperType.Note1)
                 {
-                    Debug.Log("1");
                     pile1.SetActive(true);
-
                 }
 
                 if (heldType == PaperType.Note2)
                 {
-                    Debug.Log("2");
                     pile2.SetActive(true);
-
                 }
 
                 if (heldType == PaperType.Note3)
                 {
-                    Debug.Log("3");
                     pile3.SetActive(true);
-
                 }
 
                 if (collectedPapers.Count == requiredPapers.Count)
                 {
-                    Debug.Log("[IronBarrel] All papers burned! Puzzle complete.");
-                    //OnPuzzleComplete();
                     canBurn = true;
                 }
             }
@@ -98,33 +90,19 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
                 Destroy(heldItem.GameObject);
                 Player.Instance.PickItemBehavior.UpdateEquipment();
 
-                Debug.Log("[IronBarrel] Matchbox used - fire ignited!");
-                //fireEffect.SetActive(true); // Play fire particles or animation
                 matchOnHand.SetActive(true);
                 OnPuzzleComplete();
                 return;
             }
-
-            /*
-            else if (collectedPapers.Contains(heldType))
-            {
-                Debug.Log("[IronBarrel] You already burned this paper.");
-            }
-            else
-            {
-                Debug.Log("[IronBarrel] This paper doesn't belong here.");
-            }
-            */
         }
         else
         {
-            Debug.Log("[IronBarrel] You need to hold a paper to burn it.");
+            return;
         }
     }
 
     private void OnPuzzleComplete()
     {
-        // Do whatever you want — open door, play cutscene, etc.
         StartCoroutine(AfterBurning());
         StartCoroutine(MatchAnimation());
         Debug.Log("[IronBarrel] Triggering puzzle result!");
@@ -133,6 +111,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
 
     IEnumerator AfterBurning()
     {
+        yield return new WaitForSeconds(1.2f);
         lightFlickeringScript.enabled = true;
         burnPile.SetActive(true);
         pile1.SetActive(false);

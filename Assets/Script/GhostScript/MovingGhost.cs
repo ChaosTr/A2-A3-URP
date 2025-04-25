@@ -7,15 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class MovingGhost : MonoBehaviour
 {
-    public float stepDistance = 5f;         // Distance per step
-    public float stepDuration = 0.5f;         // Time between steps
+    [Header("=========Timer=========")]
+    public float stepDistance = 5f; // Distance per step
+    public float stepDuration = 0.5f; // Time between steps
+    [Header("=========General=========")]
     public Vector3 moveDirection = Vector3.right; // Direction to move in
+    public Animator fpsCamAnima;
 
+    [Header("=========Bool=========")]
     public bool isMoving = false;
     private bool hasStartedMoving = false;
-    public Animator fpsCamAnima;
+    [Header("=========Script=========")]
     public GoldPlayerController movementScript;
     public FadeInFadeOut fadeScript;
+    [Header("=========Audio=========")]
     public AudioSource falldownSound;
     public AudioSource chokeSound;
     void Start()
@@ -65,14 +70,12 @@ public class MovingGhost : MonoBehaviour
             if (lightComponent != null)
             {
                 lightComponent.enabled = false;
-                //Debug.Log("Touched");
             }
         }
         if (other.CompareTag("Player"))
         {
             StartCoroutine(CatchYa());
             StartCoroutine(DrainSpeed());
-            //isMoving = false;
         }
     }
 
@@ -92,7 +95,6 @@ public class MovingGhost : MonoBehaviour
             yield return null;
         }
         isMoving = false;
-        //SceneManager.LoadScene("Scene 2"); WAIT FOR ANY CHANGES
     }
 
     // Decrease player walk/run speed when touched by ghost
@@ -140,7 +142,6 @@ public class MovingGhost : MonoBehaviour
         fpsCamAnima.SetBool("UrDone", true);
 
         yield return new WaitForSeconds(1f);
-        //Debug.Log("yo");
         falldownSound.Play();
 
         yield return new WaitForSeconds(1f);
@@ -163,7 +164,7 @@ public class MovingGhost : MonoBehaviour
         Quaternion targetCamRot = Quaternion.Euler(0f, 0f, 0f);
 
         Quaternion startBodyRot = movementScript.transform.rotation;
-        Quaternion targetBodyRot = Quaternion.Euler(0f, 0f, 0f); // <-- set your desired yaw here
+        Quaternion targetBodyRot = Quaternion.Euler(0f, 0f, 0f); // Set your desired rotation here
 
         while (elapsed < duration)
         {

@@ -7,18 +7,16 @@ public class CameraBattery : MonoBehaviour
     [Header("=====Battery UI Setup=====")]
     public Image batteryImage; // The UI Image showing battery status
     public Sprite[] batteryImages; // Array of battery colors for each level
-    public GameObject noMoreCam; // Out ò Battery Sprite
-
+    public GameObject noMoreCam; // Out of Battery Sprite
     [Header("=====Battery UI Container=====")]
     public GameObject batteryUIContainer;
-
     [Header("=====Camera Reference=====")]
     public SwitchCamera switchCameraScript;
-
+    [Header("=====Camera Setup=====")]
     private float batteryDrainTimer = 0f;
-    private int currentBatteryLevel = 4;
     public float drainTime;
-
+    private int currentBatteryLevel = 4;
+    [Header("=====Bool=====")]
     public bool batteryEmpty = false;
     private bool isCoroutineRunning = false;
     private bool is2ndCoroutineRunning = false;
@@ -26,7 +24,6 @@ public class CameraBattery : MonoBehaviour
     void Start()
     {
         UpdateBatteryUI();
-        //noMoreCam.SetActive(false);
 
         if (batteryUIContainer != null)
         {
@@ -36,14 +33,6 @@ public class CameraBattery : MonoBehaviour
 
     void Update()
     {
-        /*
-        if (switchCameraScript == null || batteryEmpty)
-        {
-            //noMoreCam.SetActive(true);
-            return;
-        }
-        */
-
         if (currentBatteryLevel <= 0)
         {
             batteryEmpty = true;
@@ -67,23 +56,13 @@ public class CameraBattery : MonoBehaviour
             }
         }
 
-
         if (switchCameraScript.camOnHand == false)
         {
             StartCoroutine(TurnOffUI());
-            /*
-            if (batteryEmpty)
-            {
-                batteryEmpty = false;
-                is2ndCoroutineRunning = false;
-            }
-            */
         }
-
 
         if (switchCameraScript.camOnHand == false && batteryEmpty == false && !is2ndCoroutineRunning)
         {
-            //Debug.Log("Why");
             is2ndCoroutineRunning = true;
             CheckCamBattery();
         }
@@ -107,7 +86,6 @@ public class CameraBattery : MonoBehaviour
         batteryUIContainer.SetActive(false);
     }
 
-
     public void CheckCamBattery()
     {
         StartCoroutine(TurnOff());
@@ -116,11 +94,8 @@ public class CameraBattery : MonoBehaviour
     IEnumerator TurnOff()
     {
         yield return new WaitForSeconds(1.2f);
-        //Debug.Log("Once?");
         noMoreCam.SetActive(false);
     }
-
-
 
     void DecreaseBattery()
     {
@@ -147,8 +122,8 @@ public class CameraBattery : MonoBehaviour
                 Debug.LogError("switchCameraScript is null!");
             }
         }
-
     }
+
     void UpdateBatteryUI()
     {
         if (currentBatteryLevel >= 0 && currentBatteryLevel < batteryImages.Length)
@@ -157,7 +132,7 @@ public class CameraBattery : MonoBehaviour
         }
     }
 
-    // Reset function
+    // Battery Pickup -> Reset Battery
     /*
     public void ResetBattery()
     {

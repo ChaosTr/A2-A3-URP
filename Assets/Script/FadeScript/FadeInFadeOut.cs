@@ -59,7 +59,6 @@ public class FadeInFadeOut : MonoBehaviour
 
     public IEnumerator FadeIn()
     {
-        //Debug.Log("StartFading");
         blackScreen.SetActive(true);
         fadeCanvasGroup.alpha = 1f;
 
@@ -81,7 +80,6 @@ public class FadeInFadeOut : MonoBehaviour
 
     public IEnumerator Fainting()
     {
-        //Debug.Log("StartFading");
         blackScreen.SetActive(true);
         fadeCanvasGroup.alpha = 0f;
 

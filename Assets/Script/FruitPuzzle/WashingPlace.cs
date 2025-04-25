@@ -25,8 +25,6 @@ public class WashingPlace : MonoBehaviour, IInteract
                     Destroy(heldItem.GameObject);
                     Player.Instance.PickItemBehavior.UpdateEquipment();
                     this.gameObject.SetActive(false);
-
-                    Debug.Log("[WashingPlace] Basket placed!");
                 }
             }
 
@@ -34,7 +32,7 @@ public class WashingPlace : MonoBehaviour, IInteract
         }
         else
         {
-            Debug.Log("[WashingPlace] You're not holding anything.");
+            return;
         }
     }
 }
