@@ -8,6 +8,7 @@ public class InventorySystem
     public Item CurrentHeld;
 
     public int Max = 4;
+    public event Action OnInventoryChanged;
 
     public InventorySystem()
     {
@@ -21,36 +22,21 @@ public class InventorySystem
 
     public bool Add(GameObject obj)
     {
-        //Debug.Log(obj.name);
-        //
-        //if (Storage.Count >= Max)
-        //{
-        //    Debug.LogWarning("[InventorySystem] Inventory is full! Cannot add more items.");
-        //    return false;
-        //}
-        //
-        //Storage.Add(new Item
-        //{
-        //    GameObject = obj
-        //    //amount or something you want to add to have more info
-        //});
-        //
-        //return true;
-        //
-        //Debug.Log($"[InventorySystem] Added item: {obj.name}");
-
         Debug.Log($"[InventorySystem] Trying to add: {obj.name}");
 
+        bool result = false;
         for (int i = 0; i < Max; i++)
         {
             if (Storage[i] == null)
             {
                 Storage[i] = new Item { GameObject = obj };
-                return true;
+                result = true;
+                break;
             }
         }
-      
-        return false;
+
+        OnInventoryChanged?.Invoke();
+        return result;
     }
 
     public void Remove(Item item)
@@ -69,6 +55,7 @@ public class InventorySystem
         if (CurrentHeld == item)
             CurrentHeld = null;
         Storage.Remove(item);
+        OnInventoryChanged?.Invoke();
     }
 
     public class Item
@@ -78,24 +65,8 @@ public class InventorySystem
         //but in this sample I wil make it simple
     }
 
-    public void Equip(Item item)
-    {
-        if (item != null)//CurrentHeld != null)
-        {
-            Debug.Log(item.GameObject.name);
-            CurrentHeld = item;
-        }
-    }
-
     public void Equip(int index)
     {
-        /*if (Storage.Count < index)
-        {
-            CurrentHeld = null;
-            Debug.Log(CurrentHeld.GameObject.name);
-        }
-        else CurrentHeld = Storage[index];*/
-
         if (index < 0 || index >= Storage.Count || Storage[index] == null)
         {
             
@@ -104,7 +75,6 @@ public class InventorySystem
         }
 
         CurrentHeld = Storage[index];
-        
-
+        OnInventoryChanged?.Invoke();
     }
 }

@@ -12,13 +12,18 @@ public class InventoryDisplay: MonoBehaviour
 
     public bool IsShowingInventory { get; private set; }
 
-    private int _currentView = 0;
     private bool _didInit = false;
 
     private void Start()
     {
         init();
         HideInventory();
+        System.OnInventoryChanged += updateInternal;
+    }
+
+    private void OnDestroy()
+    {
+        System.OnInventoryChanged -= updateInternal;
     }
 
     public void ViewInventory()
@@ -27,28 +32,28 @@ public class InventoryDisplay: MonoBehaviour
         gameObject.SetActive(true);
         IsShowingInventory = true;
 
-        var listItemInInventory = Player.Instance.InventorySystem.Storage;
+        updateInternal();
+    }
+
+    private void updateInternal()
+    {
+        var listItemInInventory = System.Storage;
         for (int i = 0; i < listItemInInventory.Count; i++)
         {
             _list[i].SetSelected(false);
             _list[i].Setup(listItemInInventory[i]);
         }
-        _currentView = 0;
-        _list[_currentView].SetSelected(true);
+        if (System.CurrentHeld != null)
+        {
+            int index = listItemInInventory.IndexOf(System.CurrentHeld);
+            _list[index].SetSelected(true);
+        }
     }
 
     public void HideInventory()
     {
         IsShowingInventory = false;
         gameObject.SetActive(false);
-    }
-
-    public void CycleViewItem(int index)
-    {
-        _list[_currentView].SetSelected(false);
-        _currentView += index;
-        _currentView %= System.Max;
-        _list[_currentView].SetSelected(true);
     }
 
     private void init()
