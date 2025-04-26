@@ -10,7 +10,7 @@ public class DoorSystem : MonoBehaviour, IInteract
     public float interactDistance = 3f;
     
 
-    public AudioSource audioSource;
+    //public AudioSource audioSource;
     //public AudioClip openClip;
     //public AudioClip closeClip;
     //public AudioClip lockedClip;
@@ -182,7 +182,7 @@ public class DoorSystem : MonoBehaviour, IInteract
 
         IEnumerator cor()
         {
-            audioSource.Play();
+            //audioSource.Play();
             Debug.Log("[DoorSystem] Already shaking, skipping new shake.");
 
             if (isShaking) yield break;

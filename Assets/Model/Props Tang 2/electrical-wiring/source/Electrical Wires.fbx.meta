@@ -3,7 +3,12 @@ guid: 9f2727c9c5ca6b340b1acb2ed2c8c674
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticCable
+    second: {fileID: 2100000, guid: f623f2998cdc241238b1509a6820f616, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

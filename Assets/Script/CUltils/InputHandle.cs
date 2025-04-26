@@ -60,6 +60,7 @@ public class InputHandle: MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Escape))
         {
+            inventoryDisplay?.HideInventory();
 
         }
         else if (Input.GetKey(KeyCode.Alpha1))

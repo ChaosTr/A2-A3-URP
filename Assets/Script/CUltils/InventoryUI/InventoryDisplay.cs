@@ -47,7 +47,7 @@ public class InventoryDisplay: MonoBehaviour
     {
         _list[_currentView].SetSelected(false);
         _currentView += index;
-        _currentView /= System.Max;
+        _currentView %= System.Max;
         _list[_currentView].SetSelected(true);
     }
 
