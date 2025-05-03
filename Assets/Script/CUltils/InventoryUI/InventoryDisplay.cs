@@ -6,6 +6,8 @@ public class InventoryDisplay: MonoBehaviour
 {
     [SerializeField] private InventoryItemDisplay _prefab;
     [SerializeField] Transform _content;
+    [SerializeField] private TMPro.TextMeshProUGUI _descriptionTxt;
+
 
     private List<InventoryItemDisplay> _list;
     InventorySystem System => Player.Instance.InventorySystem;
@@ -35,6 +37,12 @@ public class InventoryDisplay: MonoBehaviour
         updateInternal();
     }
 
+    private void a()
+    {
+        var obj = System.CurrentHeld.GameObject;
+        obj.SetActive(true);
+    }
+
     private void updateInternal()
     {
         var listItemInInventory = System.Storage;
@@ -47,13 +55,21 @@ public class InventoryDisplay: MonoBehaviour
         {
             int index = listItemInInventory.IndexOf(System.CurrentHeld);
             _list[index].SetSelected(true);
+            
+            //new
+            var name = System.CurrentHeld.GameObject.GetComponent<ExamineSystem.ExaminableItem>().ItemDescription;
+            _descriptionTxt.text = name;
         }
+
+        //tat gameObject
     }
 
     public void HideInventory()
     {
         IsShowingInventory = false;
         gameObject.SetActive(false);
+
+        //
     }
 
     private void init()

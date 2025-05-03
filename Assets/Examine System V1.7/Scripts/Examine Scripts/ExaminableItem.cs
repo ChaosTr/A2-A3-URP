@@ -67,6 +67,7 @@ namespace ExamineSystem
         [SerializeField] private Color fontColor = Color.white;
 
         [Space(5)][TextArea][SerializeField] private string itemDescription = null;
+        public string ItemDescription => itemDescription;
 
         [SerializeField] private int textSizeDesc = 30;
         [SerializeField] private TMP_FontAsset fontTypeDesc = null;
