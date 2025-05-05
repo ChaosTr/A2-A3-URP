@@ -103,12 +103,12 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BumpScale: 0.4
+    - _BumpScale: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DetailAlbedoMapScale: 0.548
+    - _DetailAlbedoMapScale: 0
     - _DetailNormalMapScale: 0.626
     - _DstBlend: 0
     - _DstBlendAlpha: 0
