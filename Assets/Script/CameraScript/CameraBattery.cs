@@ -10,6 +10,7 @@ public class CameraBattery : MonoBehaviour
     public GameObject noMoreCam; // Out of Battery Sprite
     [Header("=====Battery UI Container=====")]
     public GameObject batteryUIContainer;
+    public GameObject cameraOverlay;
     [Header("=====Camera Reference=====")]
     public SwitchCamera switchCameraScript;
     [Header("=====Camera Setup=====")]
@@ -21,6 +22,9 @@ public class CameraBattery : MonoBehaviour
     private bool isCoroutineRunning = false;
     private bool is2ndCoroutineRunning = false;
 
+
+    public float blinkInterval = 0.5f;
+
     void Start()
     {
         UpdateBatteryUI();
@@ -29,6 +33,7 @@ public class CameraBattery : MonoBehaviour
         {
             batteryUIContainer.SetActive(false); // Start hidden
         }
+        cameraOverlay.SetActive(false);
     }
 
     void Update()
@@ -42,6 +47,7 @@ public class CameraBattery : MonoBehaviour
         if (switchCameraScript.camOnHand == true && !isCoroutineRunning)
         {
             StartCoroutine(ShowBatteryUIWithDelay());
+            //StartCoroutine(BatteryBlink());
         }
 
         // Drain battery only when camera is active
@@ -72,18 +78,26 @@ public class CameraBattery : MonoBehaviour
     private IEnumerator ShowBatteryUIWithDelay()
     {
         isCoroutineRunning = true;
-        yield return new WaitForSeconds(1.2f); // Wait for the specified delay
+        yield return new WaitForSeconds(1.1f); // Wait for the specified delay
         if (batteryUIContainer != null)
         {
-            batteryUIContainer.SetActive(true); // Show battery UI after delay
+            batteryUIContainer.SetActive(true);
+            cameraOverlay.SetActive(true); // Show battery UI after delay
         }
         isCoroutineRunning = false;
     }
+    /*
+        private IEnumerator BatteryBlink()
+        {
+            yield return
+        }
+        */
 
     private IEnumerator TurnOffUI()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.1f);
         batteryUIContainer.SetActive(false);
+        cameraOverlay.SetActive(false);
     }
 
     public void CheckCamBattery()

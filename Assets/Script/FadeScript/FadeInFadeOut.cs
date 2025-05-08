@@ -44,10 +44,10 @@ public class FadeInFadeOut : MonoBehaviour
         // Increase the alpha of the black screen img
         fadeCanvasGroup.blocksRaycasts = true;
         float time = 0f;
-        while (time < fadeDuration)
+        while (time < 1f)
         {
             time += Time.deltaTime;
-            fadeCanvasGroup.alpha = time / fadeDuration;
+            fadeCanvasGroup.alpha = time / 1f;
             yield return null;
         }
         fadeCanvasGroup.alpha = 1f;
