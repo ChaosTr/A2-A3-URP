@@ -9,12 +9,12 @@ namespace ExamineSystem
         [SerializeField] private float interactDistance = 5;
 
         private ExaminableItem examinableItem;
-        public bool IsExamining {get; private set;}
+        public bool IsExamining { get; private set; }
         private Camera _camera;
 
         public Light light1, light2, light3;
 
-        void Start()
+        private void Start()
         {
             Instance = this;
             if (!TryGetComponent<Camera>(out _camera))
@@ -23,7 +23,7 @@ namespace ExamineSystem
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (Physics.Raycast(_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f)), transform.forward, out RaycastHit hit, interactDistance))
             {
@@ -56,25 +56,33 @@ namespace ExamineSystem
             //         SetLight(false);
             //     }
             // }
-            
-
-            
         }
 
-        public void InteractCurrentItem()
+        public void TryExamineItem()
         {
-            if (examinableItem != null){ examinableItem.ExamineObject(); IsExamining = true;}
+            if (examinableItem != null) 
+            { 
+                examinableItem.ExamineObject(); 
+                IsExamining = true;
+                setLight(true);
+            }
         }
 
-        public void PutbackObject()
+        public void TryPutbackExamieItem(bool lerp)
         {
-            if (examinableItem != null) {examinableItem.DropObject(true); IsExamining = false;}
+            if (examinableItem != null) 
+            { 
+                examinableItem.DropObject(lerp); 
+                IsExamining = false;
+                setLight(false);
+            }
         }
 
-        public void SetLight (bool value){
+        private void setLight(bool value)
+        {
             light1.enabled = value;
-                    light2.enabled = value;
-                    light3.enabled = value;
+            light2.enabled = value;
+            light3.enabled = value;
         }
 
         private void ClearExaminable()
@@ -87,7 +95,7 @@ namespace ExamineSystem
             }
         }
 
-        void HighlightCrosshair(bool on)
+        private void HighlightCrosshair(bool on)
         {
             ExamineUIManager.instance.HighlightCrosshair(on);
         }

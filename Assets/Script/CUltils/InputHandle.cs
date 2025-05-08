@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ExamineSystem;
 using UnityEngine;
-using ExamineSystem;
-public class InputHandle: MonoBehaviour
+
+public class InputHandle : MonoBehaviour
 {
     public float pickupRange = 3f;
     public GameObject inspectPoint;
@@ -10,14 +10,6 @@ public class InputHandle: MonoBehaviour
     private Camera currentCam => Player.Instance.CameraBehavior.CurrentCam;
     private ItemPickup pickItemBehavior => Player.Instance.PickItemBehavior;
     private InventoryDisplay inventoryDisplay => Player.Instance.InventoryDisplay;
-
-    private ActionDecision actionDecision;
-
-    private void Start()
-    {
-        actionDecision = new ActionDecision();
-        actionDecision.ItemPickup = pickItemBehavior;
-    }
 
     private void Update()
     {
@@ -34,36 +26,34 @@ public class InputHandle: MonoBehaviour
             {
                 if (hit.collider)
                 {
-                    actionDecision.OnMouseLeftClickHit(hit.collider);
+                    var collider = hit.collider;
+                    if (collider.GetComponent<Pickable>() is Pickable pickable)
+                    {
+                        pickItemBehavior.PickupItem(pickable.gameObject);
+                    }
+                    else if (collider.GetComponent<IInteract>() is IInteract item)
+                    {
+                        item.Interact();
+                    }
                 }
             }
-
         }
-       //if (Input.GetKey(KeyCode.I))
-       //{
-       //    Debug.Log(isOn);
-       //    if (!isOn)
-       //    {
-       //        inspectPoint.SetActive(isOn);
-       //    }
-       //        isOn = !isOn;
-       //}
-        //right click
         else if (Input.GetMouseButtonDown(1))
         {
-            actionDecision.OnMouseRightClick();
+            pickItemBehavior.DropItem();
         }
-        //open Inventory
-        else if (Input.GetKey(KeyCode.Tab))
-        {
-            inventoryDisplay?.ViewInventory();
-        }
-        else if (Input.GetKey(KeyCode.Escape))
-        {
-            inventoryDisplay?.HideInventory();
 
-        }
-        else if (Input.GetKey(KeyCode.Alpha1))
+        ////open Inventory
+        //if (Input.GetKey(KeyCode.Tab))
+        //{
+        //    inventoryDisplay?.ViewInventory();
+        //}
+        //else if (Input.GetKey(KeyCode.Escape))
+        //{
+        //    inventoryDisplay?.HideInventory();
+        //}
+
+        if (Input.GetKey(KeyCode.Alpha1))
         {
             Player.Instance.InventorySystem.Equip(0);
             pickItemBehavior.UpdateEquipment();
@@ -86,25 +76,20 @@ public class InputHandle: MonoBehaviour
 
         if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
         {
-            ExamineInteractor.Instance.InteractCurrentItem();
-            ExamineInteractor.Instance.SetLight(true);
+            ExamineInteractor.Instance.TryExamineItem();
         }
 
         if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
         {
-            if(ExamineInteractor.Instance.IsExamining)
+            if (ExamineInteractor.Instance.IsExamining)
             {
-                ExamineInteractor.Instance.PutbackObject();
-                ExamineInteractor.Instance.SetLight(false);
-
+                ExamineInteractor.Instance.TryPutbackExamieItem(true);
             }
             else
             {
-                ExamineInteractor.Instance.PutbackObject();
-                ExamineInteractor.Instance.SetLight(false);
+                ExamineInteractor.Instance.TryPutbackExamieItem(false);
                 Player.Instance.InventorySystem.HideNewAdd();
             }
         }
-
     }
 }

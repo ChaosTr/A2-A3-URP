@@ -9,11 +9,12 @@ public class InventorySystem
     public Item NewAdd;
 
     public int Max = 4;
+
     public event Action OnInventoryChanged;
 
     public InventorySystem()
     {
-        //fill all the slot at start ONCE   
+        //fill all the slot at start ONCE
         Storage = new List<Item>(Max);
         for (int i = 0; i < Max; i++)
         {
@@ -43,7 +44,7 @@ public class InventorySystem
 
     public void HideNewAdd()
     {
-        if(NewAdd!=null)
+        if (NewAdd != null)
         {
             NewAdd.GameObject.SetActive(false);
             NewAdd = null;
@@ -80,7 +81,6 @@ public class InventorySystem
     {
         if (index < 0 || index >= Storage.Count || Storage[index] == null)
         {
-            
             CurrentHeld = null;
             return;
         }
