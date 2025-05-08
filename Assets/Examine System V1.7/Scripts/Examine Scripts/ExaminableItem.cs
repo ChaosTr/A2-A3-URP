@@ -178,10 +178,10 @@ namespace ExamineSystem
             {
                 gameObject.transform.Rotate(v, h, 0);
             }
-            else if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
-            {
-                DropObject(true);
-            }
+            // else if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
+            // {
+            //     DropObject(true);
+            // }
         }
 
         void ExamineZooming()

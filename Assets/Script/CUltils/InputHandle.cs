@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using ExamineSystem;
 public class InputHandle: MonoBehaviour
 {
     public float pickupRange = 3f;
@@ -82,6 +82,28 @@ public class InputHandle: MonoBehaviour
         {
             Player.Instance.InventorySystem.Equip(3);
             pickItemBehavior.UpdateEquipment();
+        }
+
+        if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
+        {
+            ExamineInteractor.Instance.InteractCurrentItem();
+            ExamineInteractor.Instance.SetLight(true);
+        }
+
+        if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
+        {
+            if(ExamineInteractor.Instance.IsExamining)
+            {
+                ExamineInteractor.Instance.PutbackObject();
+                ExamineInteractor.Instance.SetLight(false);
+
+            }
+            else
+            {
+                ExamineInteractor.Instance.PutbackObject();
+                ExamineInteractor.Instance.SetLight(false);
+                Player.Instance.InventorySystem.HideNewAdd();
+            }
         }
 
     }

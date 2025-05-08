@@ -6,6 +6,7 @@ public class InventorySystem
 {
     public List<Item> Storage = new List<Item>();
     public Item CurrentHeld;
+    public Item NewAdd;
 
     public int Max = 4;
     public event Action OnInventoryChanged;
@@ -30,6 +31,7 @@ public class InventorySystem
             if (Storage[i] == null)
             {
                 Storage[i] = new Item { GameObject = obj };
+                NewAdd = Storage[i];
                 result = true;
                 break;
             }
@@ -37,6 +39,15 @@ public class InventorySystem
 
         OnInventoryChanged?.Invoke();
         return result;
+    }
+
+    public void HideNewAdd()
+    {
+        if(NewAdd!=null)
+        {
+            NewAdd.GameObject.SetActive(false);
+            NewAdd = null;
+        }
     }
 
     public void Remove(Item item)

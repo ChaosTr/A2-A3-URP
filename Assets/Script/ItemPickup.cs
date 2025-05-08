@@ -55,7 +55,7 @@ public class ItemPickup : MonoBehaviour
 
     public void PickupItem(GameObject item)
     {
-        // Just add it to inventory — no need to hold it yet
+        // Just add it to inventory ï¿½ no need to hold it yet
         // add to inventory whenever have slot
 
         if (Player.Instance.InventorySystem.Add(item))
@@ -63,8 +63,9 @@ public class ItemPickup : MonoBehaviour
             //hide object when picked, note: not Destroy because reference will null,
             //safe to destroy when have prefab ref but in small prototype game like this
             //just hide it, show it again when use
-            item.gameObject.SetActive(false);
+            //item.gameObject.SetActive(false);
             Debug.Log($"[ItemPickup] Added to inventory: {item.name}");
+            item.gameObject.GetComponent<ExamineSystem.ExaminableItem>().ExamineObject();
         }
         else //inventory full
         {

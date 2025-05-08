@@ -5,15 +5,18 @@ namespace ExamineSystem
     [RequireComponent(typeof(Camera))]
     public class ExamineInteractor : MonoBehaviour
     {
+        public static ExamineInteractor Instance;
         [SerializeField] private float interactDistance = 5;
 
         private ExaminableItem examinableItem;
+        public bool IsExamining {get; private set;}
         private Camera _camera;
 
         public Light light1, light2, light3;
 
         void Start()
         {
+            Instance = this;
             if (!TryGetComponent<Camera>(out _camera))
             {
                 Debug.LogError("Camera component not found on the GameObject.");
@@ -41,23 +44,37 @@ namespace ExamineSystem
                 ClearExaminable();
             }
 
-            if (examinableItem != null)
-            {
-                if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
-                {
-                    examinableItem.ExamineObject();
-                    light1.enabled = true;
-                    light2.enabled = true;
-                    light3.enabled = true;
-                }
-            }
+            // if (examinableItem != null)
+            // {
+            //     if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
+            //     {
+            //         examinableItem.ExamineObject();
+            //         SetLight(true);
+            //     }
+            //     if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
+            //      {
+            //         SetLight(false);
+            //     }
+            // }
+            
 
-            if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
-            {
-                light1.enabled = false;
-                light2.enabled = false;
-                light3.enabled = false;
-            }
+            
+        }
+
+        public void InteractCurrentItem()
+        {
+            if (examinableItem != null){ examinableItem.ExamineObject(); IsExamining = true;}
+        }
+
+        public void PutbackObject()
+        {
+            if (examinableItem != null) {examinableItem.DropObject(true); IsExamining = false;}
+        }
+
+        public void SetLight (bool value){
+            light1.enabled = value;
+                    light2.enabled = value;
+                    light3.enabled = value;
         }
 
         private void ClearExaminable()
