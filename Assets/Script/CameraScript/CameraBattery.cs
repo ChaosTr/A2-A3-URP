@@ -5,49 +5,67 @@ using UnityEngine.UI;
 public class CameraBattery : MonoBehaviour
 {
     [Header("=====Battery UI Setup=====")]
-    public Image batteryImage; // The UI Image showing battery status
-    public Sprite[] batteryImages; // Array of battery colors for each level
-    public GameObject noMoreCam; // Out of Battery Sprite
+    public Image batteryImage;
+
+    //FOR BATTERY LOGIC ONLY
+    //public Sprite[] batteryImages; // Array of battery colors for each level
+    //public GameObject noMoreCam; // Out of Battery Sprite
+
     [Header("=====Battery UI Container=====")]
     public GameObject batteryUIContainer;
     public GameObject cameraOverlay;
+
     [Header("=====Camera Reference=====")]
     public SwitchCamera switchCameraScript;
+
+    [Header("=====Blink Effect=====")]
+    private float blinkInterval = 0.5f;
+    private Coroutine blinkCoroutine;
+
+    //FOR BATTERY LOGIC
+    /*
     [Header("=====Camera Setup=====")]
     private float batteryDrainTimer = 0f;
     public float drainTime;
     private int currentBatteryLevel = 4;
+    */
+
     [Header("=====Bool=====")]
-    public bool batteryEmpty = false;
     private bool isCoroutineRunning = false;
-    private bool is2ndCoroutineRunning = false;
 
-
-    public float blinkInterval = 0.5f;
+    public bool batteryEmpty = false; //For SwitchCam script to work Only
+    //private bool is2ndCoroutineRunning = false;
 
     void Start()
     {
-        UpdateBatteryUI();
-
         if (batteryUIContainer != null)
         {
             batteryUIContainer.SetActive(false); // Start hidden
         }
         cameraOverlay.SetActive(false);
+
+        //FOR BATTERY LOGIC
+        //UpdateBatteryUI(); 
     }
 
     void Update()
     {
-        if (currentBatteryLevel <= 0)
-        {
-            batteryEmpty = true;
-        }
-
         // Check if camOnHand is true and the coroutine is not running
         if (switchCameraScript.camOnHand == true && !isCoroutineRunning)
         {
             StartCoroutine(ShowBatteryUIWithDelay());
-            //StartCoroutine(BatteryBlink());
+        }
+
+        if (switchCameraScript.camOnHand == false)
+        {
+            StartCoroutine(TurnOffUI());
+        }
+
+        //FOR BATTERY LOGIC
+        /*
+        if (currentBatteryLevel <= 0)
+        {
+            batteryEmpty = true;
         }
 
         // Drain battery only when camera is active
@@ -62,16 +80,12 @@ public class CameraBattery : MonoBehaviour
             }
         }
 
-        if (switchCameraScript.camOnHand == false)
-        {
-            StartCoroutine(TurnOffUI());
-        }
-
         if (switchCameraScript.camOnHand == false && batteryEmpty == false && !is2ndCoroutineRunning)
         {
             is2ndCoroutineRunning = true;
             CheckCamBattery();
         }
+        */
     }
 
     // Coroutine to wait before enabling the battery UI
@@ -83,23 +97,41 @@ public class CameraBattery : MonoBehaviour
         {
             batteryUIContainer.SetActive(true);
             cameraOverlay.SetActive(true); // Show battery UI after delay
+
+            if (blinkCoroutine == null)
+            {
+                blinkCoroutine = StartCoroutine(BlinkBatteryImage());
+            }
         }
         isCoroutineRunning = false;
     }
-    /*
-        private IEnumerator BatteryBlink()
+
+    private IEnumerator BlinkBatteryImage()
+    {
+        while (true)
         {
-            yield return
+            batteryImage.enabled = !batteryImage.enabled;
+            yield return new WaitForSeconds(blinkInterval);
         }
-        */
+    }
+
 
     private IEnumerator TurnOffUI()
     {
         yield return new WaitForSeconds(1.1f);
         batteryUIContainer.SetActive(false);
         cameraOverlay.SetActive(false);
+
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+            blinkCoroutine = null;
+            batteryImage.enabled = true; // Ensure it's visible again
+        }
     }
 
+    //FOR BATTERY ONLY
+    /*
     public void CheckCamBattery()
     {
         StartCoroutine(TurnOff());
@@ -147,7 +179,6 @@ public class CameraBattery : MonoBehaviour
     }
 
     // Battery Pickup -> Reset Battery
-    /*
     public void ResetBattery()
     {
         currentBatteryLevel = 4;
