@@ -6,7 +6,7 @@ public class InventorySystem
 {
     public List<Item> Storage = new List<Item>();
     public Item CurrentHeld;
-    public Item NewAdd;
+    public Item NewAdd { get; private set; }
 
     public int Max = 4;
 

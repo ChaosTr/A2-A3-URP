@@ -11,6 +11,11 @@ public class InputHandle : MonoBehaviour
     private ItemPickup pickItemBehavior => Player.Instance.PickItemBehavior;
     private InventoryDisplay inventoryDisplay => Player.Instance.InventoryDisplay;
 
+    private void Start()
+    {
+        ExamineUIManager.instance.OnCloseExamineBtnClick = onCloseExamineCall;
+    }
+
     private void Update()
     {
         //left click
@@ -81,15 +86,19 @@ public class InputHandle : MonoBehaviour
 
         if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
         {
-            if (ExamineInteractor.Instance.IsExamining)
-            {
-                ExamineInteractor.Instance.TryPutbackExamieItem(true);
-            }
-            else
-            {
-                ExamineInteractor.Instance.TryPutbackExamieItem(false);
-                Player.Instance.InventorySystem.HideNewAdd();
-            }
+            onCloseExamineCall();
+        }
+    }
+
+    private void onCloseExamineCall()
+    {
+        if (ExamineInteractor.Instance.IsExamining)
+        {
+            //only lerp when the object is examining not pickup and add to inventory
+            //if object is examining is from pick up action, no need to lerp for put it back to old position, we will hide it anyway => reduce useless call from coroutine
+            bool needLerp = Player.Instance.InventorySystem.NewAdd == null;
+            ExamineInteractor.Instance.TryPutbackExamieItem(needLerp);
+            Player.Instance.InventorySystem.HideNewAdd();
         }
     }
 }

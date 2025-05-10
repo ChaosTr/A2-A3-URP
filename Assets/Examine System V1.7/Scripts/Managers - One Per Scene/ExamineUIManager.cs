@@ -47,6 +47,7 @@ namespace ExamineSystem
         }
 
         public static ExamineUIManager instance;
+        public System.Action OnCloseExamineBtnClick;
 
         private void Awake()
         {
@@ -126,7 +127,8 @@ namespace ExamineSystem
 
         public void CloseButton()
         {
-            examinableItem.DropObject(true);
+            OnCloseExamineBtnClick?.Invoke();
+            //examinableItem.DropObject(true);
         }
 
         public void ShowHelpPrompt(bool on)
