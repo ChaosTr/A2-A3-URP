@@ -29,13 +29,14 @@ public class Player : MonoBehaviour
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, pickupRange))
-        { 
+        {
             Pickable pick = hit.collider.GetComponent<Pickable>();
-            DoorSystem door = hit.collider.GetComponent<DoorSystem>();  
+            DoorSystem door = hit.collider.GetComponent<DoorSystem>();
+            OneWayDoor oneway = hit.collider.GetComponent<OneWayDoor>();
             bool on;
             //Debug.Log(pick);
 
-            if (pick != null || door != null)
+            if (pick != null || door != null || oneway != null)
             {
                 on = true;
                 uiManager.HighlightCrosshair(on);
