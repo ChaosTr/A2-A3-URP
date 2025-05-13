@@ -20217,7 +20217,7 @@ PrefabInstance:
     - target: {fileID: 20764455326535260, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
         type: 3}
       propertyPath: m_Depth
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 20764455326535260, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
         type: 3}
@@ -20440,6 +20440,7 @@ PrefabInstance:
     - {fileID: 7685935817691617498, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
     - {fileID: 5214672216632109797, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
     - {fileID: 5422528222071360930, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
+    - {fileID: 8728352177483896710, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4078642213076180, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
@@ -30281,7 +30282,8 @@ MonoBehaviour:
   ReceiveGI: 2
   MeshColliderCookingOptions: 14
   ShowGeneratedMeshes: 0
-  DefaultPhysicsMaterial: {fileID: 0}
+  DefaultPhysicsMaterial: {fileID: 13400000, guid: 0c5fdfb44d6f19646a41a0720fbf751a,
+    type: 2}
   exportType: 0
   originType: 0
   exportColliders: 0

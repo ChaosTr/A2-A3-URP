@@ -42,11 +42,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 603fd5097357f384b83c1202df4733b4, type: 3}
+        m_Texture: {fileID: 2800000, guid: f063cd8311ec4954082a3532318d34d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 9882ce04f9af3b547aad46d939bc43f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87569aeb400a2504093c5b8e59f68d51, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -54,11 +54,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
-        m_Texture: {fileID: 2800000, guid: 515104be79c9fe74480a87375f562c13, type: 3}
+        m_Texture: {fileID: 2800000, guid: 63f9a8f6d0f0dc54ebf65c68cb41fbab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
-        m_Texture: {fileID: 2800000, guid: 9882ce04f9af3b547aad46d939bc43f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 87569aeb400a2504093c5b8e59f68d51, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -66,15 +66,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 603fd5097357f384b83c1202df4733b4, type: 3}
+        m_Texture: {fileID: 2800000, guid: f063cd8311ec4954082a3532318d34d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 515104be79c9fe74480a87375f562c13, type: 3}
+        m_Texture: {fileID: 2800000, guid: 63f9a8f6d0f0dc54ebf65c68cb41fbab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 515104be79c9fe74480a87375f562c13, type: 3}
+        m_Texture: {fileID: 2800000, guid: 63f9a8f6d0f0dc54ebf65c68cb41fbab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
