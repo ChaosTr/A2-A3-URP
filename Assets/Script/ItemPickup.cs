@@ -65,7 +65,7 @@ public class ItemPickup : MonoBehaviour
             //just hide it, show it again when use
             //item.gameObject.SetActive(false);
             Debug.Log($"[ItemPickup] Added to inventory: {item.name}");
-            ExamineSystem.ExamineInteractor.Instance.TryExamineItem();
+            ExamineSystem.ExamineInteractor.Instance.TryExamineItem(item);
         }
         else //inventory full
         {

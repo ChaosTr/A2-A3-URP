@@ -25,24 +25,25 @@ namespace ExamineSystem
 
         private void Update()
         {
-            if (Physics.Raycast(_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f)), transform.forward, out RaycastHit hit, interactDistance))
-            {
-                var examineItem = hit.collider.GetComponent<ExaminableItem>();
-                if (examineItem != null)
-                {
-                    examinableItem = examineItem;
-                    examinableItem.ItemHighlight(true);
-                    HighlightCrosshair(true);
-                }
-                else
-                {
-                    ClearExaminable();
-                }
-            }
-            else
-            {
-                ClearExaminable();
-            }
+            //if (Physics.Raycast(_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f)), transform.forward, out RaycastHit hit, interactDistance))
+            //{
+            //    var examineItem = hit.collider.GetComponent<ExaminableItem>();
+            //    if (examineItem != null)
+            //    {
+            //        Debug.Log(examinableItem.name);
+            //        examinableItem = examineItem;
+            //        examinableItem.ItemHighlight(true);
+            //        HighlightCrosshair(true);
+            //    }
+            //    else
+            //    {
+            //        ClearExaminable();
+            //    }
+            //}
+            //else
+            //{
+            //    ClearExaminable();
+            //}
 
             // if (examinableItem != null)
             // {
@@ -58,8 +59,9 @@ namespace ExamineSystem
             // }
         }
 
-        public void TryExamineItem()
+        public void TryExamineItem(GameObject obj)
         {
+            examinableItem = obj.GetComponent<ExaminableItem>();
             if (examinableItem != null) 
             { 
                 examinableItem.ExamineObject(); 

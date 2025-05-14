@@ -81,13 +81,31 @@ public class InputHandle : MonoBehaviour
 
         if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
         {
-            ExamineInteractor.Instance.TryExamineItem();
+            var obj = checkRaycast();
+            if(obj) ExamineInteractor.Instance.TryExamineItem(obj);
         }
 
         if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
         {
             onCloseExamineCall();
         }
+    }
+
+    private GameObject checkRaycast()
+    {
+        Ray ray = currentCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+        RaycastHit hit;
+
+        // Raycast to detect objects within pickup range
+        if (Physics.Raycast(ray, out hit, pickupRange))
+        {
+            if (hit.collider)
+            {
+                return hit.collider.gameObject;
+            }
+
+        }
+        return null;
     }
 
     private void onCloseExamineCall()
