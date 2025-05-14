@@ -8891,6 +8891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 502406651}
+  - component: {fileID: 502406652}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -8914,6 +8915,19 @@ Transform:
   - {fileID: 2615430390171342967}
   m_Father: {fileID: 5648389975049351424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &502406652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502406650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573371e9c1ae41e4a993eed84eeb78bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 180
 --- !u!1 &504706025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f53c7207d97b2034ebf879d4b2302052,
@@ -11058,15 +11072,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4692390546913958, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.829
+      value: 11.895
       objectReference: {fileID: 0}
     - target: {fileID: 4692390546913958, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.91
+      value: -3.806
       objectReference: {fileID: 0}
     - target: {fileID: 4692390546913958, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.01
+      value: 20.218
       objectReference: {fileID: 0}
     - target: {fileID: 4692390546913958, guid: 53c43a8ca1f02a4468880d3cecf7c6bb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20267,7 +20281,8 @@ MonoBehaviour:
   ReceiveGI: 2
   MeshColliderCookingOptions: 14
   ShowGeneratedMeshes: 0
-  DefaultPhysicsMaterial: {fileID: 0}
+  DefaultPhysicsMaterial: {fileID: 13400000, guid: 0c5fdfb44d6f19646a41a0720fbf751a,
+    type: 2}
   exportType: 0
   originType: 0
   exportColliders: 0
@@ -32084,6 +32099,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alter 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5007456365212942955, guid: d4b8d74f41d84b04db81d107678b869f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38213,7 +38233,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2413519762819278509}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e685ae4a50401c94badea2b0ea1533f4, type: 2}
   m_CullingMode: 0
