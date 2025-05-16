@@ -4130,7 +4130,7 @@ MonoBehaviour:
   prayAnimation: {fileID: 502282202}
   movementScript: {fileID: 288128945}
   puzzleScript: {fileID: 1635774106}
-  fadeScript: {fileID: 0}
+  fadeScript: {fileID: 1003875647}
 --- !u!1001 &243828677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4749,18 +4749,6 @@ MonoBehaviour:
   cameraShaker: {fileID: 1568566537}
   fadeScript: {fileID: 1003875647}
   movementScript: {fileID: 288128945}
---- !u!114 &288128964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213010504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eb65692302648c4385e451da99396e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &290688196
 GameObject:
   m_ObjectHideFlags: 0
@@ -10745,19 +10733,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1221496511255106, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
         type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 288128964}
-    - targetCorrespondingSourceObject: {fileID: 1221496511255106, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
-        type: 3}
-      insertIndex: 9
+      insertIndex: 8
       addedObject: {fileID: 288128949}
     - targetCorrespondingSourceObject: {fileID: 1221496511255106, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
         type: 3}
-      insertIndex: 10
+      insertIndex: 9
       addedObject: {fileID: 288128947}
     - targetCorrespondingSourceObject: {fileID: 1221496511255106, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
         type: 3}
-      insertIndex: 11
+      insertIndex: 10
       addedObject: {fileID: 288128957}
     - targetCorrespondingSourceObject: {fileID: 1551823562399965242, guid: 53c43a8ca1f02a4468880d3cecf7c6bb,
         type: 3}
