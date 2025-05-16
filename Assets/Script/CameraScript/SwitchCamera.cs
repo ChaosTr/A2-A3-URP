@@ -17,6 +17,7 @@ public class SwitchCamera : MonoBehaviour
     public bool camOnHand = false;
     public bool canEquipCam = false;
     public bool isTriggered = false;
+    public bool onCooldown = false;
     [Header("======InvisibleColliders======")]
     public Collider[] invisibleColli;
     [Header("==========Script==========")]
@@ -74,7 +75,7 @@ public class SwitchCamera : MonoBehaviour
         }
 
         // Press C to swtich view
-        if (Input.GetKeyDown(KeyCode.C) && canEquipCam)
+        if (Input.GetKeyDown(KeyCode.C) && canEquipCam && !onCooldown)
         {
             if (batteryScript.batteryEmpty == false)
             {
@@ -110,6 +111,7 @@ public class SwitchCamera : MonoBehaviour
 
     public IEnumerator ToggleCamera()
     {
+        onCooldown = true;
         yield return new WaitForSeconds(1.1f); // wait for animation to finish
 
         // Switch view
@@ -122,6 +124,9 @@ public class SwitchCamera : MonoBehaviour
         camAnimator.SetBool("CamOff", !camOnHand);
 
         ToggleCollider(camOnHand);
+
+        yield return new WaitForSeconds(1.9f);
+        onCooldown = false;
     }
 
     void ToggleCollider(bool enable)

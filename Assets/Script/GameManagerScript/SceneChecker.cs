@@ -20,7 +20,7 @@ public class SceneChecker : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
-        if (currentScene == "Scene 2") // Replace with your actual scene name
+        if (currentScene == "Scene 2" || currentScene == "Scene 2.1") // Replace with your actual scene name
         {
             isScene2 = true;
             //Debug.Log("We are in Scene 2!");
@@ -39,7 +39,7 @@ public class SceneChecker : MonoBehaviour
             isScene1 = true;
             //Debug.Log("We are in Scene 1!");
             switchCameraScript.canEquipCam = false;
-            
+
             fadeinScript.beginningScreen.SetActive(false);
         }
         else

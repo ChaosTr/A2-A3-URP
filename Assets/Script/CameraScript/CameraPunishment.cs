@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hertzole.GoldPlayer;
+using System.Runtime.CompilerServices;
 
 public class CameraPunishment : MonoBehaviour
 {
@@ -9,8 +10,6 @@ public class CameraPunishment : MonoBehaviour
     public float safeDuration = 25f;
     public float warningDuration = 5f;
     public float dangerInterval = 10f;
-    [Header("=====Cool Down=====")]
-    public float camCoolDown = 5f;
 
     [Header("=====Kill Chance=====")]
     public float killChance = 0.4f;
@@ -19,17 +18,17 @@ public class CameraPunishment : MonoBehaviour
     // public GameObject warningUI; // Optional: UI effect during warning
     public Animator handAnim;
     public GameObject deathHand;
+    public string nextSceneName = "Scene 2.1";
 
-    public GameObject Battery;
-    public GameObject CameraOverlay;
+    //public GameObject Battery;
+    //public GameObject CameraOverlay;
     [Header("=====Bools=====")]
     private bool isRunning = false;
-    private bool hasWarned = false;
-    public bool isOnCoolDown = false;
     private Coroutine dangerCoroutine;
     [Header("=====Scripts=====")]
     public SwitchCamera switchCameraScript;
     public CameraShaker cameraShaker;
+    public FadeInFadeOut fadeScript;
     public GoldPlayerController movementScript;
 
     void Start()
@@ -38,7 +37,6 @@ public class CameraPunishment : MonoBehaviour
     }
     void Update()
     {
-
         // Start hazard timer when camera is on hand
         if (switchCameraScript.camOnHand && !isRunning)
         {
@@ -52,16 +50,17 @@ public class CameraPunishment : MonoBehaviour
             StopCoroutine(dangerCoroutine);
             ResetHazardState();
         }
+
+        if (Input.GetKey(KeyCode.H))
+        {
+            fadeScript.PassOut();
+        }
     }
 
     private IEnumerator DangerRoutine()
     {
         isRunning = true;
         yield return new WaitForSeconds(safeDuration);
-
-        // Stage 2: Warning period (25-30s)
-        hasWarned = true;
-        //TriggerWarning(true);
 
         // Shake the Camera
         if (cameraShaker != null)
@@ -70,38 +69,25 @@ public class CameraPunishment : MonoBehaviour
         }
 
         yield return new WaitForSeconds(warningDuration);
-        //TriggerWarning(false);
 
-        // Stage 3: Danger loop (30s onward)
         while (switchCameraScript.camOnHand)
         {
             yield return new WaitForSeconds(dangerInterval);
 
             if (Random.value <= killChance)
             {
-                Debug.Log("Killed by overusing the camera.");
-                StartCoroutine(Punish());
+                StartCoroutine(DrainMouse());
+                StartCoroutine(DrainMoveSpeed());
                 yield break;
             }
         }
 
         ResetHazardState();
     }
-    /*
-    private void TriggerWarning(bool show)
-    {
-        if (warningUI != null)
-        {
-            warningUI.SetActive(show);
-        }
-    }
-    */
 
-    private IEnumerator Punish()
+    private IEnumerator DrainMouse()
     {
-        movementScript.enabled = false;
-
-        // Darin mouse control
+        // Drain mouse control
         float duration = 3f;
         float elapsed = 0f;
 
@@ -114,11 +100,13 @@ public class CameraPunishment : MonoBehaviour
             movementScript.Camera.lookSensitivity = Vector2.Lerp(originalSensitivity, targetSensitivity, elapsed / duration);
             yield return null;
         }
+    }
 
-        /*
+    private IEnumerator DrainMoveSpeed()
+    {
         // Drain movement speed
-        duration = 3f;
-        elapsed = 0f;
+        float duration = 3f;
+        float elapsed = 0f;
 
         // Save the original movement speeds
         MovementSpeeds originalWalk = movementScript.Movement.walkingSpeeds;
@@ -145,37 +133,37 @@ public class CameraPunishment : MonoBehaviour
 
             yield return null;
         }
-        */
+        StartCoroutine(Punish());
+    }
 
-        //fpsCamAnimator.enabled = true;
-
+    private IEnumerator Punish()
+    {
+        movementScript.enabled = false;
         yield return new WaitForSeconds(0.5f);
         Debug.Log("What is Happening");
         deathHand.SetActive(true);
         handAnim.SetBool("Gotcha", true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.2f);
         StartCoroutine(KillPlayer());
     }
 
     private IEnumerator KillPlayer()
     {
-        if (switchCameraScript.fadeOutScript != null)
+        if (fadeScript != null)
         {
-            switchCameraScript.fadeOutScript.BlackScreenOut();
+            fadeScript.PassOut();
         }
-        Battery.SetActive(false);
-        CameraOverlay.SetActive(false);
+        //Battery.SetActive(false);
+        //CameraOverlay.SetActive(false);
 
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene("Scene 2");
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void ResetHazardState()
     {
         isRunning = false;
-        hasWarned = false;
-        //TriggerWarning(false);
     }
 }
 
