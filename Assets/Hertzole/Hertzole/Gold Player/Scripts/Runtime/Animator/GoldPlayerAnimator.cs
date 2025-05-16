@@ -133,6 +133,10 @@ namespace Hertzole.GoldPlayer
             {
                 return string.Empty;
             }
+            else if (index < 0 || index >= animator.parameterCount)
+            {
+                return string.Empty;
+            }
             else
             {
                 return animator.GetParameter(index).name;
@@ -167,25 +171,35 @@ namespace Hertzole.GoldPlayer
         /// </summary>
         private void ValidateParameters()
         {
-            //the controller must save data before bring to the next step
-            if (moveX.enabled && animator.GetParameter(moveX.index).type != AnimatorControllerParameterType.Float)
+            if (animator == null || animator.runtimeAnimatorController == null)
             {
-                Debug.LogWarning("Move X parameter needs to be a Float value.", gameObject);
+                Debug.LogWarning("Animator or runtimeAnimatorController is missing.", gameObject);
+                return;
             }
 
-            if (moveY.enabled && animator.GetParameter(moveY.index).type != AnimatorControllerParameterType.Float)
+            int paramCount = animator.parameterCount;
+
+            TryValidateParameter(moveX, paramCount, AnimatorControllerParameterType.Float, "Move X");
+            TryValidateParameter(moveY, paramCount, AnimatorControllerParameterType.Float, "Move Y");
+            TryValidateParameter(crouching, paramCount, AnimatorControllerParameterType.Bool, "Crouching");
+            TryValidateParameter(lookAngle, paramCount, AnimatorControllerParameterType.Float, "Look Angle");
+        }
+        private void TryValidateParameter(GoldPlayerAnimatorParameterInfo info, int paramCount, AnimatorControllerParameterType expectedType, string name)
+        {
+            if (!info.enabled)
+                return;
+
+            if (info.index < 0 || info.index >= paramCount)
             {
-                Debug.LogWarning("Move Y parameter needs to be a Float value.", gameObject);
+                Debug.LogWarning($"{name} parameter index {info.index} is out of bounds. Animator has {paramCount} parameters.", gameObject);
+                return;
             }
 
-            if (crouching.enabled && animator.GetParameter(crouching.index).type != AnimatorControllerParameterType.Bool)
-            {
-                Debug.LogWarning("Crouching parameter needs to be a Boolean value.", gameObject);
-            }
+            var param = animator.GetParameter(info.index);
 
-            if (lookAngle.enabled && animator.GetParameter(lookAngle.index).type != AnimatorControllerParameterType.Float)
+            if (param.type != expectedType)
             {
-                Debug.LogWarning("Look Angle parameter needs to be a Float value.", gameObject);
+                Debug.LogWarning($"{name} parameter needs to be a {expectedType} value.", gameObject);
             }
         }
 #endif
@@ -195,10 +209,19 @@ namespace Hertzole.GoldPlayer
         /// </summary>
         protected virtual void GetAnimatorHashes()
         {
-            moveXHash = animator.GetParameter(moveX.index).nameHash;
-            moveYHash = animator.GetParameter(moveY.index).nameHash;
-            crouchingHash = animator.GetParameter(crouching.index).nameHash;
-            lookAngleHash = animator.GetParameter(lookAngle.index).nameHash;
+            int paramCount = animator != null ? animator.parameterCount : 0;
+
+            if (animator != null && paramCount > moveX.index)
+                moveXHash = animator.GetParameter(moveX.index).nameHash;
+
+            if (animator != null && paramCount > moveY.index)
+                moveYHash = animator.GetParameter(moveY.index).nameHash;
+
+            if (animator != null && paramCount > crouching.index)
+                crouchingHash = animator.GetParameter(crouching.index).nameHash;
+
+            if (animator != null && paramCount > lookAngle.index)
+                lookAngleHash = animator.GetParameter(lookAngle.index).nameHash;
         }
 
         /// <summary>
@@ -224,7 +247,8 @@ namespace Hertzole.GoldPlayer
                 CalculateVelocity();
                 CalculateLookAngle();
 
-                if (crouching.enabled)
+
+                if (crouching.enabled && crouching.index >= 0 && crouching.index < animator.parameterCount)
                 {
                     animator.SetBool(crouchingHash, playerController.Movement.IsCrouching);
                 }
