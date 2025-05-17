@@ -19,6 +19,11 @@ public class TriggerGhostEvent : MonoBehaviour
     [Header("=========Bool=========")]
     private bool hasTriggered = false;
 
+    void Start()
+    {
+        hiddenWall.SetActive(false);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !hasTriggered)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Hertzole.GoldPlayer;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,7 +41,7 @@ public class SceneChecker : MonoBehaviour
             //Debug.Log("We are in Scene 1!");
             switchCameraScript.canEquipCam = false;
 
-            fadeinScript.beginningScreen.SetActive(false);
+            fadeinScript.beginningScreen.SetActive(true);
         }
         else
         {
@@ -57,10 +58,17 @@ public class SceneChecker : MonoBehaviour
             StartCoroutine(StartToWakeUp());
             isTriggered = true;
         }
+
+        if (isScene1)
+        {
+            Debug.Log("Fade");
+            fadeinScript.WakeUp();
+        }
     }
 
     IEnumerator StartToWakeUp()
     {
+        switchCameraScript.canEquipCam = false;
         yield return new WaitForSeconds(3f);
         fadeinScript.WakeUp();
         //Debug.Log("YO");
@@ -73,8 +81,9 @@ public class SceneChecker : MonoBehaviour
         fpsAnima.SetBool("Wakey", true);
         //Debug.Log("Where am I");
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3.2f);
         playerScript.Camera.CanLookAround = true;
         playerScript.enabled = true;
+        switchCameraScript.canEquipCam = true;
     }
 }
