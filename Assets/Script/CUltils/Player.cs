@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    private float pickupRange = 3f;
+    private float pickupRange = 1.5f;
 
     public SwitchCamera CameraBehavior;
     //public ExamineSystem.ExaminableItem ExaminableItem;
@@ -33,10 +33,11 @@ public class Player : MonoBehaviour
             Pickable pick = hit.collider.GetComponent<Pickable>();
             DoorSystem door = hit.collider.GetComponent<DoorSystem>();
             OneWayDoor oneway = hit.collider.GetComponent<OneWayDoor>();
+            bool puzzle = hit.collider.CompareTag("Puzzle");
             bool on;
             //Debug.Log(pick);
 
-            if (pick != null || door != null || oneway != null)
+            if (pick != null || door != null || oneway != null || puzzle)
             {
                 on = true;
                 uiManager.HighlightCrosshair(on);
