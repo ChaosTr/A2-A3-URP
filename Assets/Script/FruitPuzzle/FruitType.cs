@@ -5,8 +5,7 @@ using UnityEngine;
 public enum FruitType
 {
     grape,
-    mangcau,
-    coconut,
+    orange,
     banana,
     dirtyBasket
 }

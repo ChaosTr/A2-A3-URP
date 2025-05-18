@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AlterInteract : MonoBehaviour, IInteract
 {
-    public List<FruitType> requiredFruits = new List<FruitType> { FruitType.grape, FruitType.banana }; //FruitType.mangcau
+    public List<FruitType> requiredFruits = new List<FruitType> { FruitType.grape, FruitType.banana, FruitType.orange };
     private HashSet<FruitType> placedFruits = new HashSet<FruitType>();
 
     private bool platePlaced = false;
@@ -15,6 +15,7 @@ public class AlterInteract : MonoBehaviour, IInteract
     public GameObject grapeOnPlate;
     //public GameObject coconutOnPlate;
     public GameObject bananaOnPlate;
+    public GameObject orangeOnPlate;
 
     public PuzzleChecker puzzleCheckerScript;
 
@@ -30,7 +31,7 @@ public class AlterInteract : MonoBehaviour, IInteract
     {
         altarPlate.SetActive(false);
         grapeOnPlate.SetActive(false);
-        //coconutOnPlate.SetActive(false);
+        orangeOnPlate.SetActive(false);
         bananaOnPlate.SetActive(false);
     }
 
@@ -114,11 +115,11 @@ public class AlterInteract : MonoBehaviour, IInteract
             case FruitType.grape:
                 grapeOnPlate.SetActive(true);
                 break;
-            /*
-            case FruitType.mangcau:
-                coconutOnPlate.SetActive(true);
+
+            case FruitType.orange:
+                orangeOnPlate.SetActive(true);
                 break;
-            */
+
             case FruitType.banana:
                 bananaOnPlate.SetActive(true);
                 break;

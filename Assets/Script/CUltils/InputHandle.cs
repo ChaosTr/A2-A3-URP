@@ -9,7 +9,6 @@ public class InputHandle : MonoBehaviour
 
     private Camera currentCam => Player.Instance.CameraBehavior.CurrentCam;
     private ItemPickup pickItemBehavior => Player.Instance.PickItemBehavior;
-    private InventoryDisplay inventoryDisplay => Player.Instance.InventoryDisplay;
 
     private void Start()
     {
@@ -82,7 +81,7 @@ public class InputHandle : MonoBehaviour
         if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
         {
             var obj = checkRaycast();
-            if(obj) ExamineInteractor.Instance.TryExamineItem(obj);
+            if (obj) ExamineInteractor.Instance.TryExamineItem(obj);
         }
 
         if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))

@@ -5,12 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    private float pickupRange = 1.5f;
+    private float pickupRange = 3f;
 
     public SwitchCamera CameraBehavior;
     //public ExamineSystem.ExaminableItem ExaminableItem;
     public ItemPickup PickItemBehavior;
-    public InventoryDisplay InventoryDisplay;
     public ExamineUIManager uiManager;
 
     public InventorySystem InventorySystem { get; private set; }

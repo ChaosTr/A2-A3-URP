@@ -3,7 +3,12 @@ guid: 40ee9ca6b5488d54db3a9024d332c047
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Orange Baked
+    second: {fileID: 2100000, guid: 70c9c477b1ebb864b81ebe83a91c01ec, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
