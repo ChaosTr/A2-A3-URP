@@ -23,7 +23,7 @@ public class GhostRun : MonoBehaviour
         Quaternion initialRotation = ghost.transform.rotation;
         Quaternion peekRotation = Quaternion.Euler(0f, initialRotation.eulerAngles.y, initialRotation.eulerAngles.z);
 
-        float duration = 0.5f;
+        float duration = 0.75f;
         float elapsed = 0f;
 
         // Rotate to peek

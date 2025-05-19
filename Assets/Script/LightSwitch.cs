@@ -12,6 +12,7 @@ public class LightSwitch : MonoBehaviour, IInteract
     public GameObject lightSource;
 
     public bool notClick = false;
+    private bool isTriggered = false;
 
     private void Start()
     {
@@ -30,4 +31,14 @@ public class LightSwitch : MonoBehaviour, IInteract
 
         lightSource.SetActive(notClick);
     }
+    /*
+    private void Update()
+    {
+        if (notClick && !isTriggered)
+        {
+            isTriggered = true;
+
+        }
+    }
+    */
 }

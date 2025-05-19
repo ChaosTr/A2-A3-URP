@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ExamineSystem;
 using UnityEngine;
 
@@ -32,11 +33,12 @@ public class Player : MonoBehaviour
             Pickable pick = hit.collider.GetComponent<Pickable>();
             DoorSystem door = hit.collider.GetComponent<DoorSystem>();
             OneWayDoor oneway = hit.collider.GetComponent<OneWayDoor>();
+            LightSwitch lightswitch = hit.collider.GetComponent<LightSwitch>();
             bool puzzle = hit.collider.CompareTag("Puzzle");
             bool on;
             //Debug.Log(pick);
 
-            if (pick != null || door != null || oneway != null || puzzle)
+            if (pick != null || door != null || oneway != null || lightswitch != null || puzzle)
             {
                 on = true;
                 uiManager.HighlightCrosshair(on);
