@@ -7,9 +7,12 @@ using System.Runtime.CompilerServices;
 public class CameraPunishment : MonoBehaviour
 {
     [Header("=====Timer=====")]
-    public float safeDuration = 25f;
-    public float warningDuration = 5f;
-    public float dangerInterval = 10f;
+    [SerializeField]
+    private float min = 25f;
+    [SerializeField]
+    private float max = 31f;
+    private float warningDuration = 5f;
+    private float dangerInterval = 10f;
 
     [Header("=====Kill Chance=====")]
     public float killChance = 0.4f;
@@ -60,7 +63,8 @@ public class CameraPunishment : MonoBehaviour
     private IEnumerator DangerRoutine()
     {
         isRunning = true;
-        yield return new WaitForSeconds(safeDuration);
+        float randomsafeDuration = Random.Range(min, max);
+        yield return new WaitForSeconds(randomsafeDuration);
 
         // Shake the Camera
         if (cameraShaker != null)
