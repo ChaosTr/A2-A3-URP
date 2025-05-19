@@ -15270,7 +15270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &506236637
 Transform:
   m_ObjectHideFlags: 0
@@ -25241,6 +25241,8 @@ MonoBehaviour:
     _prefab: Assets/Model/Scene2/New Props/low-poly-plastic-crates/source/crate_lp.fbx
   - _gameObject: {fileID: 2056141310}
     _prefab: Assets/Model/Scene1/Props/old cardboard boxes/Boxes.fbx
+  - _gameObject: {fileID: 1245969263}
+    _prefab: Assets/Model/Scene2/Probs/Altar/BanTho/BanTho_table.fbx
 --- !u!4 &858618876
 Transform:
   m_ObjectHideFlags: 11
@@ -36376,6 +36378,80 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0010582188, y: 0.08303547, z: 0.043262485}
   m_Center: {x: 0.000000007916242, y: 0.0087872315, z: 0.00008831173}
+--- !u!1001 &1245969262
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.64
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.29
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.96
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 557e8349263560d4890aab0a5c5dded7,
+        type: 3}
+      propertyPath: m_Name
+      value: BanTho_table
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 557e8349263560d4890aab0a5c5dded7, type: 3}
+--- !u!1 &1245969263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 557e8349263560d4890aab0a5c5dded7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1245969262}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1251546962
 GameObject:
   m_ObjectHideFlags: 0
@@ -85480,3 +85556,4 @@ SceneRoots:
   - {fileID: 389075075}
   - {fileID: 1719104976}
   - {fileID: 2056141309}
+  - {fileID: 1245969262}
