@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 528431c18f9f29843b0ff09feb86f58c
+guid: 9fe42284eebbd4743b2496fb35522118
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cutboard_Wood_Mat
+    second: {fileID: 2100000, guid: 51eed729f9650cf4db6ee638c3b23ee0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

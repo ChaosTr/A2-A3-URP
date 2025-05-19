@@ -34,10 +34,6 @@ public class Scene2Animations : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            fadeScript.BlackScreenIn();
-        }
         if (onSpot && puzzleScript.puzzle1Done && !isTriggered)
         {
             isTriggered = true;
@@ -64,16 +60,16 @@ public class Scene2Animations : MonoBehaviour
         prayAnimation.SetBool("Pray", true);
 
         // Turn on the HumanFigure and teleprot player to location
-        yield return new WaitForSeconds(6.2f);
-        Vector3 targetPosition = new Vector3(-1.884f, 0.2829998f, -3.767f);
+        yield return new WaitForSeconds(14f);
+        Vector3 targetPosition = new Vector3(10.492f, -3.806f, 19.298f);
         player.transform.position = targetPosition;
         humanFigure.SetActive(true);
 
-        yield return new WaitForSeconds(1.9f);
+        yield return new WaitForSeconds(2f);
         humanFigure.SetActive(false);
 
         //Turn off pray + HumanFigure, turn on player again
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(12f);
         prayCam.SetActive(false);
         player.SetActive(true);
         movementScript.enabled = true;
