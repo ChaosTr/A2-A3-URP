@@ -34,11 +34,12 @@ public class Player : MonoBehaviour
             DoorSystem door = hit.collider.GetComponent<DoorSystem>();
             OneWayDoor oneway = hit.collider.GetComponent<OneWayDoor>();
             LightSwitch lightswitch = hit.collider.GetComponent<LightSwitch>();
+            ExaminableItem examine = hit.collider.GetComponent<ExaminableItem>();
             bool puzzle = hit.collider.CompareTag("Puzzle");
             bool on;
             //Debug.Log(pick);
 
-            if (pick != null || door != null || oneway != null || lightswitch != null || puzzle)
+            if (pick != null || door != null || oneway != null || lightswitch != null || puzzle || examine != null)
             {
                 on = true;
                 uiManager.HighlightCrosshair(on);
