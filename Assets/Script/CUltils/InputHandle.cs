@@ -38,10 +38,18 @@ public class InputHandle : MonoBehaviour
             // Raycast to detect objects within pickup range
             if (Physics.Raycast(ray, out hit, pickupRange))
             {
-                FramePlace frame = hit.collider.GetComponent<FramePlace>();
+                
                 AlterInteract alter = hit.collider.GetComponent<AlterInteract>();
                 IronBarrelBurner barrel = hit.collider.GetComponent<IronBarrelBurner>();
                 Debug.Log("Hit");
+                if (hit.collider.CompareTag("Puzzle"))
+                {
+                    message = "There's one missing...";
+                    messageText.text = message;
+                    messageText.gameObject.SetActive(true);
+                    StopCoroutine(nameof(Hide));
+                    StartCoroutine(Hide());
+                }
                 if (hit.collider)
                 {
                     var collider = hit.collider;
@@ -56,14 +64,7 @@ public class InputHandle : MonoBehaviour
                     
                 }              
 
-               if (frame != null)
-               {                    
-                   message = "There's one missing...";
-                   messageText.text = message;
-                   messageText.gameObject.SetActive(true);
-                   StopCoroutine(nameof(Hide));
-                   StartCoroutine(Hide());
-               }
+               
 
                 if (alter != null)
                 {
