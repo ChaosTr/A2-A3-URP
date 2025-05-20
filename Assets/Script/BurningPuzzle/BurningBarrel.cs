@@ -36,16 +36,6 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         pile3.SetActive(false);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            matchBox.SetBool("Light", true);
-            matchStick.SetBool("Light", true);
-        }
-    }
-
-
     public void Interact()
     {
         var heldItem = Player.Instance.InventorySystem.CurrentHeld;
@@ -111,7 +101,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
 
     IEnumerator AfterBurning()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(3f);
         lightFlickeringScript.enabled = true;
         burnPile.SetActive(true);
         pile1.SetActive(false);
@@ -129,7 +119,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         StartCoroutine(DisableMovement());
         matchBox.SetBool("Light", true);
         matchStick.SetBool("Light", true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.6f);
         matchFire.SetActive(true);
 
         yield return new WaitForSeconds(1.9f);
