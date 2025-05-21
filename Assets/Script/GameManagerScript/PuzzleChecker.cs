@@ -8,14 +8,17 @@ public class PuzzleChecker : MonoBehaviour
 {
     public bool puzzle1Done;
     public bool puzzle2Done;
+    public bool puzzle3Done;
     [SerializeField] private bool isTriggered = false;
     public GameObject talisMan1;
     public GameObject talisMan2;
+    public GameObject talisMan3;
 
     //[SerializeField] private DoorSystem doorSystem;
     [SerializeField] private FadingWhite fadeToWhite;
     private bool firstTriggered = false;
     private bool secondTriggered = false;
+    private bool thirdTriggered = false;
     private bool onSpot;
     public Animator sealedDoor;
 
@@ -56,7 +59,13 @@ public class PuzzleChecker : MonoBehaviour
             GainKinematicBack();
             talisMan2.GetComponent<Rigidbody>().isKinematic = false;
         }
-        if (puzzle1Done && puzzle2Done && !isTriggered && onSpot)
+        if (puzzle3Done && !thirdTriggered)
+        {
+            thirdTriggered = true;
+            GainKinematicBack();
+            talisMan3.GetComponent<Rigidbody>().isKinematic = false;
+        }
+        if (puzzle1Done && puzzle2Done && puzzle3Done && !isTriggered && onSpot)
         {
             isTriggered = true;
             StartCoroutine(LoadWhiteScreen());

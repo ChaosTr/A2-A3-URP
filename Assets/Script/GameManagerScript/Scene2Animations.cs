@@ -60,12 +60,12 @@ public class Scene2Animations : MonoBehaviour
         prayAnimation.SetBool("Pray", true);
 
         // Turn on the HumanFigure and teleprot player to location
-        yield return new WaitForSeconds(14f);
+        yield return new WaitForSeconds(13f);
         Vector3 targetPosition = new Vector3(10.492f, -3.806f, 19.298f);
         player.transform.position = targetPosition;
         humanFigure.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         humanFigure.SetActive(false);
 
         //Turn off pray + HumanFigure, turn on player again
