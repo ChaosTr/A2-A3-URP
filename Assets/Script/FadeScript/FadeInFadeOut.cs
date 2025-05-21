@@ -16,6 +16,10 @@ public class FadeInFadeOut : MonoBehaviour
         fadeCanvasGroup.alpha = 0f;
         blackScreen.SetActive(false);
     }
+    public void StartScene1()
+    {
+        StartCoroutine(StartGame());
+    }
     public void WakeUp()
     {
         StartCoroutine(Wakey());
@@ -102,6 +106,19 @@ public class FadeInFadeOut : MonoBehaviour
         {
             time -= Time.deltaTime;
             beginningCanvasGroup.alpha = time / fadeDuration;
+            yield return null;
+        }
+        beginningCanvasGroup.alpha = 0f;
+        beginningCanvasGroup.blocksRaycasts = false;
+    }
+
+    public IEnumerator StartGame()
+    {
+        float time = 5;
+        while (time > 0f)
+        {
+            time -= Time.deltaTime;
+            beginningCanvasGroup.alpha = time / 5;
             yield return null;
         }
         beginningCanvasGroup.alpha = 0f;

@@ -12,7 +12,8 @@ public class SceneChecker : MonoBehaviour
     public Animator fpsAnima;
 
     public FadeInFadeOut fadeinScript;
-    public bool isTriggered;
+    public bool isTriggered = false;
+    private bool isTriggered2 = false;
 
     public GoldPlayerController playerScript;
     public SwitchCamera switchCameraScript;
@@ -59,10 +60,10 @@ public class SceneChecker : MonoBehaviour
             isTriggered = true;
         }
 
-        if (isScene1)
+        if (isScene1 && !isTriggered2)
         {
-            Debug.Log("Fade");
-            fadeinScript.WakeUp();
+            isTriggered2 = true;
+            fadeinScript.StartScene1();
         }
     }
 
