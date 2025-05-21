@@ -3,7 +3,22 @@ guid: 471e7aed727d8ce4cbf8cfc3fa9bda1e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Camcorder
+    second: {fileID: 2100000, guid: 3db3415df3aa04ba985682bb96733943, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Camcorder.001
+    second: {fileID: 2100000, guid: 864a426f10ed74d0eab18b72238a1b47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 29ba6c11ca36b4462bfb307dd5a74772, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
