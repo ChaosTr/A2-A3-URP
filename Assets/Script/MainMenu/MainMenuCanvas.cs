@@ -8,6 +8,7 @@ using UnityEditor;
 public class MainMenuCanvas : MonoBehaviour
 {
     public Button Play;
+    public Button Quit;
     public bool sceneFreeze = false;
     private bool isTriggered = false;
     public Light light1;
@@ -17,6 +18,11 @@ public class MainMenuCanvas : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(DelayLittle());
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void Update()

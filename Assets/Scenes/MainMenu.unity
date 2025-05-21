@@ -2698,7 +2698,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1519789039}
         m_TargetAssemblyTypeName: MainMenuCanvas, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3428,6 +3428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Play: {fileID: 833679993}
+  Quit: {fileID: 1310049998}
   sceneFreeze: 0
   light1: {fileID: 1909236632}
   light2: {fileID: 226510229}
