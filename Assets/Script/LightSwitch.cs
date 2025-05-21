@@ -16,13 +16,29 @@ public class LightSwitch : MonoBehaviour, IInteract
 
     private void Start()
     {
-        onState.SetActive(notClick);
-        offState.SetActive(!notClick);
+        UpdateLight();
+
+        if (notClick && !isTriggered)
+        {
+            isTriggered = true;
+            StartCoroutine(RandomlyTurnOff());
+        }
     }
 
     public void Interact()
     {
         notClick = !notClick;
+        UpdateLight();
+
+        if (notClick && !isTriggered)
+        {
+            isTriggered = true;
+            StartCoroutine(RandomlyTurnOff());
+        }
+    }
+
+    private void UpdateLight()
+    {
         onState.SetActive(notClick);
         onLight.SetActive(notClick);
 
@@ -31,14 +47,16 @@ public class LightSwitch : MonoBehaviour, IInteract
 
         lightSource.SetActive(notClick);
     }
-    /*
-    private void Update()
-    {
-        if (notClick && !isTriggered)
-        {
-            isTriggered = true;
 
+    IEnumerator RandomlyTurnOff()
+    {
+        float random = Random.Range(14f, 20f);
+        yield return new WaitForSeconds(random);
+        if (Random.value < 0.3f)
+        {
+            notClick = !notClick;
+            UpdateLight();
         }
+        isTriggered = false;
     }
-    */
 }
