@@ -21,7 +21,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
 
     public GoldPlayerController playerScript;
     public SwitchCamera switchCameraScript;
-    public LightFlickering lightFlickeringScript;
+    //public LightFlickering lightFlickeringScript;
 
 
     public Animator matchBox;
@@ -102,14 +102,14 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
     IEnumerator AfterBurning()
     {
         yield return new WaitForSeconds(3f);
-        lightFlickeringScript.enabled = true;
+        //lightFlickeringScript.enabled = true;
         burnPile.SetActive(true);
         pile1.SetActive(false);
         pile2.SetActive(false);
         pile3.SetActive(false);
 
         yield return new WaitForSeconds(3f);
-        lightFlickeringScript.enabled = false;
+        //lightFlickeringScript.enabled = false;
         yield return new WaitForSeconds(10f);
         fireEffect.SetActive(false);
     }
@@ -133,13 +133,13 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         playerScript.Camera.CanLookAround = false;
         playerScript.enabled = false;
         Debug.Log("Stop Now");
-        lightFlickeringScript.enabled = true;
+        //lightFlickeringScript.enabled = true;
 
         yield return new WaitForSeconds(2.5f);
         Debug.Log("Can Move Again");
         playerScript.Camera.CanLookAround = true;
         playerScript.enabled = true;
-        lightFlickeringScript.enabled = false;
+        //lightFlickeringScript.enabled = false;
 
         matchOnHand.SetActive(false);
     }
