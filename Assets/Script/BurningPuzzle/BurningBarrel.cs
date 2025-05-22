@@ -87,6 +87,7 @@ public class IronBarrelBurner : MonoBehaviour, IInteract
         }
         else
         {
+            Player.Instance.SetMessage("This looks like it use for burning something...");
             return;
         }
     }

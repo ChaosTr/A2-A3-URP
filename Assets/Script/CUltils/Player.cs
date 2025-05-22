@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using ExamineSystem;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI messageText;
+    [SerializeField]
+    private float displayDuration = 2.5f;
+
+    [SerializeField] 
     private float pickupRange = 3f;
 
+    public static Player Instance { get; private set; }
+    
     public SwitchCamera CameraBehavior;
-    //public ExamineSystem.ExaminableItem ExaminableItem;
     public ItemPickup PickItemBehavior;
     public ExamineUIManager uiManager;
 
@@ -23,6 +30,9 @@ public class Player : MonoBehaviour
         Instance = this;
         InventorySystem = new InventorySystem();
     }
+
+    public GameObject CurrentPointing { get; private set; }
+
     private void Update()
     {
         Ray ray = currentCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
@@ -30,16 +40,18 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, pickupRange))
         {
-            Pickable pick = hit.collider.GetComponent<Pickable>();
-            DoorSystem door = hit.collider.GetComponent<DoorSystem>();
-            OneWayDoor oneway = hit.collider.GetComponent<OneWayDoor>();
-            LightSwitch lightswitch = hit.collider.GetComponent<LightSwitch>();
+            if (hit.collider)
+            {
+                CurrentPointing = hit.collider.gameObject;
+            }
+            Pickable pickable = hit.collider.GetComponent<Pickable>();
+            IInteract interactable = hit.collider.GetComponent<IInteract>();
             ExaminableItem examine = hit.collider.GetComponent<ExaminableItem>();
             bool puzzle = hit.collider.CompareTag("Puzzle");
             bool on;
             //Debug.Log(pick);
 
-            if (pick != null || door != null || oneway != null || lightswitch != null || puzzle || examine != null)
+            if (pickable != null || interactable != null || puzzle || examine != null)
             {
                 on = true;
                 uiManager.HighlightCrosshair(on);
@@ -48,6 +60,23 @@ public class Player : MonoBehaviour
             {
                 on = false;
                 uiManager.HighlightCrosshair(on);
+            }
+        }
+    }
+
+    public void SetMessage(string message)
+    {
+        messageText.text = message;
+        messageText.gameObject.SetActive(true);
+        StopCoroutine(nameof(Hide));
+        StartCoroutine(Hide());
+
+        IEnumerator Hide()
+        {
+            yield return new WaitForSeconds(displayDuration);
+            if (messageText != null)
+            {
+                messageText.gameObject.SetActive(false);
             }
         }
     }

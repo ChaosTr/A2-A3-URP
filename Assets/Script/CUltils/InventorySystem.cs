@@ -5,8 +5,9 @@ using UnityEngine;
 public class InventorySystem
 {
     public List<Item> Storage = new List<Item>();
-    public Item CurrentHeld;
+    public Item CurrentHeld => Storage[CurrentHeldIdx];
     public Item NewAdd { get; private set; }
+    public int CurrentHeldIdx { get; private set; }
 
     public int Max = 4;
 
@@ -64,9 +65,6 @@ public class InventorySystem
             }
         }
 
-        if (CurrentHeld == item)
-            CurrentHeld = null;
-        Storage.Remove(item);
         OnInventoryChanged?.Invoke();
     }
 
@@ -79,13 +77,12 @@ public class InventorySystem
 
     public void Equip(int index)
     {
-        if (index < 0 || index >= Storage.Count || Storage[index] == null)
+        if (index < 0 || index >= Storage.Count)
         {
-            CurrentHeld = null;
             return;
         }
 
-        CurrentHeld = Storage[index];
+        CurrentHeldIdx = index;
         OnInventoryChanged?.Invoke();
     }
 }

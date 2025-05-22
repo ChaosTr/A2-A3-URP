@@ -1,24 +1,11 @@
 ﻿using ExamineSystem;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System.Collections;
-using Unity.VisualScripting;
 
 public class InputHandle : MonoBehaviour
 {
-    public float pickupRange = 3f;
-    public GameObject inspectPoint;
-    //private bool isOn = false;
-    [SerializeField]
-    private string message;
-    [SerializeField]
-    private TMPro.TextMeshProUGUI messageText;
-    private Camera currentCam => Player.Instance.CameraBehavior.CurrentCam;
-
-    [SerializeField]
-    private float displayDuration = 2.5f;
     private ItemPickup pickItemBehavior => Player.Instance.PickItemBehavior;
+    private GameObject CurrentPointingObj => Player.Instance.CurrentPointing;
+    private InventorySystem InventorySystem => Player.Instance.InventorySystem;
 
     private void Start()
     {
@@ -30,58 +17,20 @@ public class InputHandle : MonoBehaviour
         //left click
         if (Input.GetMouseButtonDown(0))
         {
-            //Raycast
-            // Cast a ray from the center of the screen
-            Ray ray = currentCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-            RaycastHit hit;
-
-            // Raycast to detect objects within pickup range
-            if (Physics.Raycast(ray, out hit, pickupRange))
+            if (CurrentPointingObj)
             {
-                
-                AlterInteract alter = hit.collider.GetComponent<AlterInteract>();
-                IronBarrelBurner barrel = hit.collider.GetComponent<IronBarrelBurner>();
                 Debug.Log("Hit");
-                if (hit.collider.CompareTag("Puzzle"))
+                if (CurrentPointingObj.CompareTag("Puzzle"))
                 {
-                    message = "There's one missing...";
-                    messageText.text = message;
-                    messageText.gameObject.SetActive(true);
-                    StopCoroutine(nameof(Hide));
-                    StartCoroutine(Hide());
+                    Player.Instance.SetMessage("There's one missing...");
                 }
-                if (hit.collider)
+                if (GetComponent<Collider>().GetComponent<Pickable>() is Pickable pickable)
                 {
-                    var collider = hit.collider;
-                    if (collider.GetComponent<Pickable>() is Pickable pickable)
-                    {
-                        pickItemBehavior.PickupItem(pickable.gameObject);
-                    }
-                    else if (collider.GetComponent<IInteract>() is IInteract item)
-                    {
-                        item.Interact();
-                    }
-                    
-                }              
-
-               
-
-                if (alter != null)
-                {
-                    message = "Am I suppose to place something on there...?";
-                    messageText.text = message;
-                    messageText.gameObject.SetActive(true);
-                    StopCoroutine(nameof(Hide));
-                    StartCoroutine(Hide());
+                    pickItemBehavior.PickupItem(pickable.gameObject);
                 }
-
-                if (barrel != null)
+                else if (GetComponent<Collider>().GetComponent<IInteract>() is IInteract item)
                 {
-                    message = "This looks like it use for burning something...";
-                    messageText.text = message;
-                    messageText.gameObject.SetActive(true);
-                    StopCoroutine(nameof(Hide));
-                    StartCoroutine(Hide());
+                    item.Interact();
                 }
             }
         }
@@ -90,16 +39,18 @@ public class InputHandle : MonoBehaviour
             pickItemBehavior.DropItem();
         }
 
-        ////open Inventory
-        //if (Input.GetKey(KeyCode.Tab))
-        //{
-        //    inventoryDisplay?.ViewInventory();
-        //}
-        //else if (Input.GetKey(KeyCode.Escape))
-        //{
-        //    inventoryDisplay?.HideInventory();
-        //}
+        if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
+        {
+            var obj = CurrentPointingObj;
+            if (obj) ExamineInteractor.Instance.TryExamineItem(obj);
+        }
 
+        if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
+        {
+            onCloseExamineCall();
+        }
+
+#if EQUIP_BY_KEYBOARD
         if (Input.GetKey(KeyCode.Alpha1))
         {
             Player.Instance.InventorySystem.Equip(0);
@@ -120,34 +71,14 @@ public class InputHandle : MonoBehaviour
             Player.Instance.InventorySystem.Equip(3);
             pickItemBehavior.UpdateEquipment();
         }
-
-        if (Input.GetKeyDown(ExamineInputManager.instance.interactKey))
+#else
+        if (Input.mouseScrollDelta.y != 0)
         {
-            var obj = checkRaycast();
-            if (obj) ExamineInteractor.Instance.TryExamineItem(obj);
+            var current = InventorySystem.CurrentHeldIdx;
+            current += (int)(-1 * Input.mouseScrollDelta.y) / InventorySystem.Max;
+            InventorySystem.Equip(current);
         }
-
-        if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
-        {
-            onCloseExamineCall();
-        }
-    }
-
-    private GameObject checkRaycast()
-    {
-        Ray ray = currentCam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-        RaycastHit hit;
-
-        // Raycast to detect objects within pickup range
-        if (Physics.Raycast(ray, out hit, pickupRange))
-        {
-            if (hit.collider)
-            {
-                return hit.collider.gameObject;
-            }
-
-        }
-        return null;
+#endif
     }
 
     private void onCloseExamineCall()
@@ -159,15 +90,6 @@ public class InputHandle : MonoBehaviour
             bool needLerp = Player.Instance.InventorySystem.NewAdd == null;
             ExamineInteractor.Instance.TryPutbackExamieItem(needLerp);
             Player.Instance.InventorySystem.HideNewAdd();
-        }
-    }
-
-    private IEnumerator Hide()
-    {
-        yield return new WaitForSeconds(displayDuration);
-        if (messageText != null)
-        {
-            messageText.gameObject.SetActive(false);
         }
     }
 }

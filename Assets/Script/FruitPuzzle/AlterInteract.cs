@@ -41,6 +41,7 @@ public class AlterInteract : MonoBehaviour, IInteract
 
         if (heldItem == null)
         {
+            Player.Instance.SetMessage("Am I suppose to place something on there...?");
             Debug.Log("[Altar] You must hold something to place it.");
             return;
         }
