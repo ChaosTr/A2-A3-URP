@@ -3272,7 +3272,6 @@ MonoBehaviour:
   isEndScene: 0
   fpsAnima: {fileID: 1537893622}
   fadeinScript: {fileID: 2060076400}
-  isTriggered: 0
   playerScript: {fileID: 467865265}
   switchCameraScript: {fileID: 1122311239}
 --- !u!4 &157809786
@@ -23874,6 +23873,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioS: {fileID: 0}
+  sentences: []
+  messageText: {fileID: 0}
+  waitTime: 0
 --- !u!65 &1077859750
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31529,7 +31531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1446093330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31546,7 +31548,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -58, y: -201}
+  m_AnchoredPosition: {x: -58, y: -208.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446093331
@@ -31571,8 +31573,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hey... that guy's up.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 97bfe24c0ddd1684ebe9e94afcf6b987, type: 2}
+  m_sharedMaterial: {fileID: 4104455975557328756, guid: 97bfe24c0ddd1684ebe9e94afcf6b987,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -31596,8 +31599,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 17.5
+  m_fontSizeBase: 17.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

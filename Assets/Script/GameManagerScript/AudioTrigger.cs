@@ -5,7 +5,8 @@ using UnityEngine;
 public class AudioTrigger : MonoBehaviour
 {
     public AudioSource audioS;
-    public string message;
+    //public string message;
+    public List<string> sentences = new List<string>();
     public TMPro.TextMeshProUGUI messageText;
     public float waitTime;
     // Start is called before the first frame update
@@ -28,8 +29,12 @@ public class AudioTrigger : MonoBehaviour
 
     IEnumerator Subtitle()
     {
-        messageText.text = message;
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(0.5f);
+        foreach (string sentence in sentences)
+        {
+            messageText.text = sentence;
+            yield return new WaitForSeconds(waitTime);
+        }
         messageText.text = " ";
         Destroy(gameObject, 0.5f);
 
