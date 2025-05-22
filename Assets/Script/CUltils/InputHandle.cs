@@ -24,11 +24,11 @@ public class InputHandle : MonoBehaviour
                 {
                     Player.Instance.SetMessage("There's one missing...");
                 }
-                if (GetComponent<Collider>().GetComponent<Pickable>() is Pickable pickable)
+                if (CurrentPointingObj.GetComponent<Pickable>() is Pickable pickable)
                 {
                     pickItemBehavior.PickupItem(pickable.gameObject);
                 }
-                else if (GetComponent<Collider>().GetComponent<IInteract>() is IInteract item)
+                else if (CurrentPointingObj.GetComponent<IInteract>() is IInteract item)
                 {
                     item.Interact();
                 }
@@ -74,9 +74,14 @@ public class InputHandle : MonoBehaviour
 #else
         if (Input.mouseScrollDelta.y != 0)
         {
+            Debug.Log($"mouse scroll {Input.mouseScrollDelta.y}");
             var current = InventorySystem.CurrentHeldIdx;
-            current += (int)(-1 * Input.mouseScrollDelta.y) / InventorySystem.Max;
+            Debug.Log($"index {current}");
+            var next = current + (int)(-1 * Input.mouseScrollDelta.y);
+            current = next % InventorySystem.Max;
+            Debug.Log($"after {current}");
             InventorySystem.Equip(current);
+            pickItemBehavior.UpdateEquipment();
         }
 #endif
     }
