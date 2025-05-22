@@ -60,7 +60,13 @@ public class Player : MonoBehaviour
             {
                 on = false;
                 uiManager.HighlightCrosshair(on);
+                CurrentPointing = null;
+
             }
+        }
+        else
+        {
+            CurrentPointing = null;
         }
     }
 
