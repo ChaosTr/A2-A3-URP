@@ -9,11 +9,13 @@ public class SceneChecker : MonoBehaviour
 {
     public bool isScene2;
     public bool isScene1;
+    public bool isEndScene;
     public Animator fpsAnima;
 
     public FadeInFadeOut fadeinScript;
     public bool isTriggered = false;
     private bool isTriggered2 = false;
+    private bool isTriggered3 = false;
 
     public GoldPlayerController playerScript;
     public SwitchCamera switchCameraScript;
@@ -50,6 +52,20 @@ public class SceneChecker : MonoBehaviour
             //Debug.Log("This is not Scene 1.");
             switchCameraScript.canEquipCam = true;
         }
+
+        if (currentScene == "End Scene") // Replace with your actual scene name
+        {
+            isEndScene = true;
+            //Debug.Log("We are in Scene 2!");
+            playerScript.Camera.CanLookAround = false;
+            playerScript.enabled = false;
+            fadeinScript.beginningScreen.SetActive(true);
+        }
+        else
+        {
+            isScene2 = false;
+            //Debug.Log("This is not Scene 2.");
+        }
     }
 
     public void Update()
@@ -64,6 +80,12 @@ public class SceneChecker : MonoBehaviour
         {
             isTriggered2 = true;
             fadeinScript.StartScene1();
+        }
+
+        if (isEndScene && !isTriggered3)
+        {
+            isTriggered3 = true;
+            StartCoroutine(RealWakeUp());
         }
     }
 
@@ -86,5 +108,25 @@ public class SceneChecker : MonoBehaviour
         playerScript.Camera.CanLookAround = true;
         playerScript.enabled = true;
         switchCameraScript.canEquipCam = true;
+    }
+
+    IEnumerator RealWakeUp()
+    {
+        switchCameraScript.canEquipCam = false;
+        yield return new WaitForSeconds(3f);
+        fadeinScript.WakeUp();
+        //Debug.Log("YO");
+
+        yield return new WaitForSeconds(0.5f);
+        fadeinScript.FadeOut();
+
+        yield return new WaitForSeconds(1.5f);
+        fadeinScript.WakeUp();
+        fpsAnima.SetBool("Nani", true);
+        //Debug.Log("Where am I");
+
+        yield return new WaitForSeconds(18f);
+        playerScript.Camera.CanLookAround = true;
+        playerScript.enabled = true;
     }
 }
