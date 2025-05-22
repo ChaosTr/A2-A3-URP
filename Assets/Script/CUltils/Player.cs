@@ -13,6 +13,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] 
     private float pickupRange = 3f;
+    [SerializeField]
+    private GameObject examineUI;
+    [SerializeField]
+    private GameObject interactUI;
+    [SerializeField]
+    private GameObject pickupUI;
 
     public static Player Instance { get; private set; }
     
@@ -47,9 +53,29 @@ public class Player : MonoBehaviour
             Pickable pickable = hit.collider.GetComponent<Pickable>();
             IInteract interactable = hit.collider.GetComponent<IInteract>();
             ExaminableItem examine = hit.collider.GetComponent<ExaminableItem>();
+            IInteract interact = hit.collider.GetComponent<MonoBehaviour>() as IInteract;
             bool puzzle = hit.collider.CompareTag("Puzzle");
             bool on;
             //Debug.Log(pick);
+
+            examineUI.SetActive(false);
+            interactUI.SetActive(false);
+            pickupUI.SetActive(false);
+
+            if (examine != null && pickable != null)
+            {
+                //examineUI.SetActive(true);
+                pickupUI.SetActive(true);
+            }
+            else if (examine != null)
+            {
+                examineUI.SetActive(true);
+            }
+
+            if (interactable != null)
+            {
+                interactUI.SetActive(true);
+            }
 
             if (pickable != null || interactable != null || puzzle || examine != null)
             {

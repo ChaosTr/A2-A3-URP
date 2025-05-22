@@ -1,4 +1,5 @@
 ﻿using ExamineSystem;
+using Hertzole.GoldPlayer;
 using UnityEngine;
 
 public class InputHandle : MonoBehaviour
@@ -6,6 +7,11 @@ public class InputHandle : MonoBehaviour
     private ItemPickup pickItemBehavior => Player.Instance.PickItemBehavior;
     private GameObject CurrentPointingObj => Player.Instance.CurrentPointing;
     private InventorySystem InventorySystem => Player.Instance.InventorySystem;
+    private bool isPaused = false;
+    [SerializeField]
+    private GameObject pausePanel;
+    [SerializeField]
+    private GoldPlayerController playerController;
 
     private void Start()
     {
@@ -53,6 +59,26 @@ public class InputHandle : MonoBehaviour
         if (Input.GetKeyDown(ExamineInputManager.instance.dropKey))
         {
             onCloseExamineCall();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isPaused = !isPaused;
+            if (isPaused)
+            {
+                pausePanel.SetActive(isPaused);
+                Time.timeScale = 0f;
+                playerController.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            if (!isPaused)
+            {
+                pausePanel.SetActive(isPaused);
+                Time.timeScale = 1f;
+                playerController.enabled=true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
 
 #if EQUIP_BY_KEYBOARD
