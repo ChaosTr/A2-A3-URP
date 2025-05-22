@@ -13,7 +13,7 @@ public class SceneChecker : MonoBehaviour
     public Animator fpsAnima;
 
     public FadeInFadeOut fadeinScript;
-    public bool isTriggered = false;
+    private bool isTriggered = false;
     private bool isTriggered2 = false;
     private bool isTriggered3 = false;
 
@@ -27,7 +27,7 @@ public class SceneChecker : MonoBehaviour
         if (currentScene == "Scene 2") // Replace with your actual scene name
         {
             isScene2 = true;
-            //Debug.Log("We are in Scene 2!");
+            Debug.Log("We are in Scene 2!");
             playerScript.Camera.CanLookAround = false;
             playerScript.enabled = false;
             fadeinScript.beginningScreen.SetActive(true);
@@ -35,7 +35,7 @@ public class SceneChecker : MonoBehaviour
         else
         {
             isScene2 = false;
-            //Debug.Log("This is not Scene 2.");
+            Debug.Log("This is not Scene 2.");
         }
 
         if (currentScene == "Scene 1") // Replace with your actual scene name
@@ -63,7 +63,7 @@ public class SceneChecker : MonoBehaviour
         }
         else
         {
-            isScene2 = false;
+            isEndScene = false;
             //Debug.Log("This is not Scene 2.");
         }
     }
