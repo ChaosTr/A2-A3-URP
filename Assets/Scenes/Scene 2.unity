@@ -3015,15 +3015,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a375a30af1c7d346906b2e7905efb62,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1307008447}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a375a30af1c7d346906b2e7905efb62,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1307008442}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a375a30af1c7d346906b2e7905efb62,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1307008446}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a375a30af1c7d346906b2e7905efb62,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1307008447}
   m_SourcePrefab: {fileID: 100100000, guid: 5a375a30af1c7d346906b2e7905efb62, type: 3}
 --- !u!1 &110594081
 GameObject:
@@ -23934,8 +23934,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010994736, y: 0.00031169425, z: 0.021185994}
-  m_Center: {x: 0, y: 0, z: 0.010624129}
+  m_Size: {x: 0.010994736, y: 0.0014223862, z: 0.021185994}
+  m_Center: {x: 0, y: -0.0007952024, z: 0.010624129}
 --- !u!1 &1251240844 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7951510958052225478, guid: c1724452326ee6c4e954bddde03dcf49,
@@ -25298,7 +25298,7 @@ MonoBehaviour:
   textSize: 32
   fontType: {fileID: 11400000, guid: 97bfe24c0ddd1684ebe9e94afcf6b987, type: 2}
   fontColor: {r: 1, g: 1, b: 1, a: 1}
-  itemDescription: it tell me to offer something
+  itemDescription: it tell me to offer to the alter something
   textSizeDesc: 30
   fontTypeDesc: {fileID: 11400000, guid: 97bfe24c0ddd1684ebe9e94afcf6b987, type: 2}
   fontColorDesc: {r: 1, g: 1, b: 1, a: 1}
@@ -25391,8 +25391,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.001324153, y: 0.003777163, z: 0.00005249494}
-  m_Center: {x: -2.6193447e-10, y: -4.0745363e-10, z: -0.0000065000004}
+  m_Size: {x: 0.001324153, y: 0.0037771626, z: 0.00016994304}
+  m_Center: {x: -2.9802322e-10, y: -4.4703483e-10, z: 0.000052224063}
 --- !u!1 &1311578584 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9279895278781221, guid: 4717817bc1fc7e740b2d8a252f459199,
@@ -27989,8 +27989,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.001324153, y: 0.003777163, z: 0.00005249494}
-  m_Center: {x: -2.6193447e-10, y: -4.0745363e-10, z: -0.0000065000004}
+  m_Size: {x: 0.001324153, y: 0.0037771626, z: 0.00017619914}
+  m_Center: {x: -2.9802322e-10, y: -4.4703483e-10, z: 0.000055352113}
 --- !u!114 &1448964080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28223,8 +28223,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.001324153, y: 0.003777163, z: 0.00005249494}
-  m_Center: {x: -2.6193447e-10, y: -4.0745363e-10, z: -0.0000065000004}
+  m_Size: {x: 0.001324153, y: 0.0037771626, z: 0.00014060801}
+  m_Center: {x: -2.9802322e-10, y: -4.4703483e-10, z: 0.00003755656}
 --- !u!114 &1459394222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31564,7 +31564,6 @@ MonoBehaviour:
   isEndScene: 0
   fpsAnima: {fileID: 640368308}
   fadeinScript: {fileID: 1003875647}
-  isTriggered: 0
   playerScript: {fileID: 288128945}
   switchCameraScript: {fileID: 288128938}
 --- !u!65 &1635774109
