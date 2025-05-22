@@ -20,9 +20,14 @@ public class InputHandle : MonoBehaviour
             if (CurrentPointingObj)
             {
                 Debug.Log("Hit");
-                if (CurrentPointingObj.CompareTag("Puzzle"))
+                
+                if (CurrentPointingObj.GetComponent<IronBarrelBurner>())
                 {
-                    Player.Instance.SetMessage("There's one missing...");
+                    Player.Instance.SetMessage("This looks like it use for burning something...");
+                }
+                if (CurrentPointingObj.GetComponent<FramePlace>())
+                {
+                    Player.Instance.SetMessage("A frame missing...?");
                 }
                 if (CurrentPointingObj.GetComponent<Pickable>() is Pickable pickable)
                 {
