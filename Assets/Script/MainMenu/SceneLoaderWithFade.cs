@@ -8,7 +8,7 @@ public class SceneLoaderWithFade : MonoBehaviour
 {
     public CanvasGroup fadeGroup;
     public float fadeDuration = 1f;
-    public string sceneToLoad = "GameScene"; // Set your target scene name
+    public string sceneToLoad = "Scene 1"; // Set your target scene name
 
     void Start()
     {
