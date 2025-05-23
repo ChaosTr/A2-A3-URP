@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Hertzole.GoldPlayer;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject controlPanel;
     public GameObject RUSure;
+    public ButtonChange noButton;
+    public ButtonChange backButton;
 
     //public CanvasGroup fadeGroup;
     public float fadeDuration = 0.5f;
@@ -29,11 +33,23 @@ public class PauseManager : MonoBehaviour
 
     public void HideControls()
     {
-        controlPanel.SetActive(false); // Show controls after fade-in
+        controlPanel.SetActive(false);
+        backButton.changeBack(); // Show controls after fade-in
+    }
+
+    public void AreUSure()
+    {
+        RUSure.SetActive(true);
+    }
+
+    public void CloseAreUSure()
+    {
+        RUSure.SetActive(false);
+        noButton.changeBack();
     }
 
     public void BackToMainMenu()
     {
-        RUSure.SetActive(true);
+        SceneManager.LoadScene("MainMenu");
     }
 }

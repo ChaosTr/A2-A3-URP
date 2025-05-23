@@ -9,6 +9,7 @@ public class ButtonChange : MonoBehaviour
     public TextMeshProUGUI buttonText;
     public Button button;
     public Sprite image1;
+    public Image buttonImage;
     private Color defaultTextColor = Color.white;
     private Color hoverTextColor = Color.black;
 
@@ -17,11 +18,11 @@ public class ButtonChange : MonoBehaviour
         if (buttonText != null)
         {
             buttonText.color = hoverTextColor;
-            button.image.sprite = image1;
+            buttonImage.sprite = image1;
 
-            Color newColor = button.image.color;
+            Color newColor = buttonImage.color;
             newColor.a = 1f; // Full opacity
-            button.image.color = newColor;
+            buttonImage.color = newColor;
 
         }
     }
@@ -31,11 +32,11 @@ public class ButtonChange : MonoBehaviour
         if (buttonText != null)
         {
             buttonText.color = defaultTextColor;
-            button.image.sprite = null;
+            buttonImage.sprite = null;
 
-            Color newColor = button.image.color;
+            Color newColor = buttonImage.color;
             newColor.a = 0f; // Fully transparent
-            button.image.color = newColor;
+            buttonImage.color = newColor;
         }
     }
 }
