@@ -12,6 +12,7 @@ public class PauseManager : MonoBehaviour
     public GameObject RUSure;
     public ButtonChange noButton;
     public ButtonChange backButton;
+    public ButtonChange resumeButton;
 
     //public CanvasGroup fadeGroup;
     public float fadeDuration = 0.5f;
@@ -24,6 +25,7 @@ public class PauseManager : MonoBehaviour
         playerController.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        resumeButton.changeBack();
     }
 
     public void ShowControls()
