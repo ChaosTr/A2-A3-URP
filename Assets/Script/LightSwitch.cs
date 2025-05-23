@@ -11,6 +11,8 @@ public class LightSwitch : MonoBehaviour, IInteract
     public GameObject offLight;
     public GameObject lightSource;
 
+    public AudioSource audioSource;
+
     public bool notClick = false;
     private bool isTriggered = false;
 
@@ -27,6 +29,10 @@ public class LightSwitch : MonoBehaviour, IInteract
 
     public void Interact()
     {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
         notClick = !notClick;
         UpdateLight();
 
@@ -52,7 +58,7 @@ public class LightSwitch : MonoBehaviour, IInteract
     {
         float random = Random.Range(14f, 20f);
         yield return new WaitForSeconds(random);
-        if (Random.value < 0.3f)
+        if (Random.value < 0.44f)
         {
             notClick = !notClick;
             UpdateLight();
